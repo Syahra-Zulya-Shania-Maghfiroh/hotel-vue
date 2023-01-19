@@ -1,0 +1,41 @@
+.router-link-exact-active {
+    font-weight: bold;
+}
+.bg-image {
+    background-image: url(/src/assets/landing.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.standard {
+    background: rgba(33, 34, 25, 0.5);
+    background-image: url(/src/assets/standard.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: darken;
+}
+.suite {
+    background: rgba(33, 34, 25, 0.5);
+    background-image: url(/src/assets/suite.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: darken;
+}
+.deluxe {
+    background: rgba(33, 34, 25, 0.5);
+    background-image: url(/src/assets/deluxe.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: darken;
+}
+.president {
+    background: rgba(33, 34, 25, 0.5);
+    background-image: url(/src/assets/president.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: darken;
+}
