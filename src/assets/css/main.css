@@ -7,6 +7,12 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+.landing {
+    background-image: url(/src/assets/landing1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 .standard {
     background: rgba(33, 34, 25, 0.5);
     background-image: url(/src/assets/standard.jpg);

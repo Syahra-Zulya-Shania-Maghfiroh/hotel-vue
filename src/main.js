@@ -3,7 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import flatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
+
 import './assets/css/main.css'
+
 
 // import navbar from './components/Navbar.vue'
 // import { createRouter, createWebHistory } from 'vue-router'
@@ -20,4 +24,4 @@ import './assets/css/main.css'
 // app.use(router)
 // app.use(store)
 // app.mount('#app')
-createApp(App).use(store).use(router).mount('#app')
+createApp(App).use(store).use(router).use(flatPickr).mount('#app')

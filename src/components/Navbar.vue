@@ -16,7 +16,7 @@
                         <router-link class="nav-link" to="/ourroom">OUR ROOM</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/about">ABOOUT US</router-link>
+                        <router-link class="nav-link" to="/manage">MANAGE</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link" to="/contact">CONTACT</router-link>
