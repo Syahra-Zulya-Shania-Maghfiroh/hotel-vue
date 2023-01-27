@@ -36,6 +36,18 @@
                 </div>
             </div>
         </div>
+        <div class="about">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 style="margin-bottom: 20px">About <span style="color: #ffd700;">Wikusama Hotels</span></h4>
+                    <p>Ladies and gentlemen, history keeps repeating itself but doesn't teach us any lessons. 'Never again' has turned into 'again and again and again.' So today, ladies and gentlemen, take Hotel Lunar as a wake-up call and a message to be our messenger that people are the ones who can change what they want to change. </p>
+                    <p>Ladies and gentlemen, history keeps repeating itself but doesn't teach us any lessons. 'Never again' has turned into 'again and again and again.' So today, ladies and gentlemen, take Hotel Lunar as a wake-up call and a message to be our messenger that people are the ones who can change what they want to change. </p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="../assets/suite.jpg" alt="" style="width: 32rem">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

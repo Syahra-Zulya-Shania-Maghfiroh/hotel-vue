@@ -15,8 +15,9 @@
 </template> -->
         <!-- <input class="form-control" type="datetime-local" placeholder="Select Datetime"> -->
 <template>
-    <Navbar/>
     <div class="container" style="padding: 50px 0 50px 0">
+        <h2 style="text-align: center">Booking Information</h2>
+        <h6 style="color: #B0B0B0; text-align: center; margin-bottom: 60px">Please fill up the blank fields below</h6>
         <div class="row">
             <div class="col-lg-8">
                 <h4 style="color: #ffd700; ">Suite Room</h4>
@@ -28,16 +29,14 @@
                 <flat-pickr v-model="date" :config="config" class="form-control" placeholder="Select date" name="date"/>
             </div>
         </div>
+        <router-link class="btn btn-secondary" to="rooms">Cancel</router-link>
     </div>
-    
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
     export default {
         name: "BookView",
         components: {
-            Navbar
         },
         data(){
             return{

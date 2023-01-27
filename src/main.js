@@ -5,9 +5,12 @@ import store from './store'
 
 import flatPickr from 'vue-flatpickr-component'
 import 'flatpickr/dist/flatpickr.css'
+import VueFileUpload from 'vue-file-upload'
 
 import './assets/css/main.css'
 
+import axios from 'axios'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 // import navbar from './components/Navbar.vue'
 // import { createRouter, createWebHistory } from 'vue-router'
@@ -20,8 +23,13 @@ import './assets/css/main.css'
 //     ],
 //     base: '/'
 // });
-// const app = createApp(App)
-// app.use(router)
-// app.use(store)
-// app.mount('#app')
-createApp(App).use(store).use(router).use(flatPickr).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.use(store)
+app.use(flatPickr)
+app.use(VueFileUpload)
+app.mount('#app')
+app.config.globalProperties.axios = axios;
+app.config.globalProperties.$url = 'http://127.0.0.1:8000/api'
+
+// createApp(App).use(store).use(router).use(flatPickr).mount('#app')

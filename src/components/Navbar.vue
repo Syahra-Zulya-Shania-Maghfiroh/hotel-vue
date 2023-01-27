@@ -13,10 +13,20 @@
                         <router-link class="nav-link" to="/">HOME</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/ourroom">OUR ROOM</router-link>
+                        <router-link class="nav-link" to="/rooms">OUR ROOM</router-link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <router-link class="nav-link" to="/manage">MANAGE</router-link>
+                    </li> -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            MANAGE
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <router-link class="dropdown-item" to="/m-user">USER</router-link>
+                            <router-link class="dropdown-item" to="/m-type">ROOM TYPE</router-link>
+                            <router-link class="dropdown-item" to="/m-room">ROOM</router-link>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link" to="/contact">CONTACT</router-link>

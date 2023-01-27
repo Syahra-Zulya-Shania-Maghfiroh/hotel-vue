@@ -1,6 +1,9 @@
 .router-link-exact-active {
     font-weight: bold;
 }
+.router-link-exact-active {
+    font-weight: bold;
+}
 .bg-image {
     background-image: url(/src/assets/landing.jpg);
     background-size: cover;
