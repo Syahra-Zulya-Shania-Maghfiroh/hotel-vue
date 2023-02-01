@@ -17,9 +17,9 @@
                 <li class="list-group-item" style="background-color: #14274A; color: #ffffff; text-transform: uppercase; text-align:center">{{type.type_name}} ROOM</li>
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-lg-10">hahaha</div>
+                        <div class="col-lg-10">{{type.desc}}</div>
                         <div class="col-lg-2">
-                            <router-link class="btn btn-warning text-light" to="/booking">Rp.{{ type.price }} /night</router-link>
+                            <router-link class="btn btn-warning text-light" :to="{path: '/booking/' + type.type_id}">Rp.{{ type.price }} /night</router-link>
                         </div>
                     </div>
                 </li>

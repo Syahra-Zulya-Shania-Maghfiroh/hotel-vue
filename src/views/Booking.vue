@@ -2,6 +2,7 @@
     import {ref} from 'vue';
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
+// import func from 'vue-editor-bridge';
 
     const date = ref(null);
 </script>
@@ -40,8 +41,27 @@
         },
         data(){
             return{
-                date: null
+                date: null,
+                list_type : '',
+                type_id : '',
+                type_name: '',
+                photo_name: '',
+                desc: '',
+                price: '',
             }
+        },
+        methods: {
+            getData: function(){
+                this.axios.get('/type').then(resp => {
+                    this.list_type = resp.data.data;
+                    console.log(this.list_type);
+                })
+            },
+            // getDetail: function(){
+            //     this.axios.get('/type/' + type_id).then(resp => {
+            //         this.list_type = resp.data.data;
+            //     })
+            // }
         }
     }
 

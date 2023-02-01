@@ -13,15 +13,16 @@
     <div class="container m-auto d-flex flex-wrap align-items-stretch justify-content-around">
         <div class="card" style="width: 30rem; margin-bottom: 2rem" v-for="type in list_type" :key="type">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><img :src="'http://127.0.0.1:8000/images/' + type.photo_name" alt="Gambar"></li>
+                <li class="list-group-item"><img :src="'http://127.0.0.1:8000/images/' + type.photo_name" alt="Gambar" style=" width: 435px; height: 250px" ></li>
                 <li class="list-group-item" style="text-transform: uppercase; text-align:center">{{type.type_name}} ROOM</li>
                 <li class="list-group-item">
                     <h5 style="color: #14274A">Rp. {{type.price}}</h5>
                     <p>{{type.desc}}</p>
                     <div class="container text-center mb-2">
-                    <router-link class="btn btn-warning text-light mr-2" to="/booking">See More</router-link>
+                    <router-link class="btn btn-warning text-light mr-2" :to="{path: '/detailroom/' + type.type_id}">See More</router-link>
                     <router-link class="btn btn-warning text-light mr-2" to="/booking">Update</router-link>
-                    <router-link class="btn btn-danger text-light" to="/booking">Delete</router-link>
+                    <!-- <router-link class="btn btn-danger text-light" to="/booking">Delete</router-link> -->
+                    <button v-on:click="hapus(type.type_id)" class="btn btn-danger">Delete</button>
                     </div>
                 </li>
             </ul>
@@ -59,21 +60,7 @@
                         <button class="btn btn-warning" type="submit">Tambah</button>
                     </div>
                 </form>
-                
-                
-                    
-                <!-- <div class="mb-3"> -->
-                    <!-- <label for="photo">Photo</label>
-                    <input type="file" class="form-control" id="photo" @change="uploadPhoto($event)"> -->
-                    <!-- <file-upload ref="upload" v-on:input="onFileSelected"/>
-                    <button @click="uploadFile">Photo</button> -->
-                    <!-- <input type="file" v-model="photo" class="form-control" required>        -->
-                <!-- </div> -->
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                <button v-on:click="saveData()" type="button" class="btn btn-primary btn-sm" data-dismiss="modal">{{this.action}}</button>
-            </div> -->
             </div>
         </div>
     </div>
@@ -125,9 +112,20 @@ import axios from 'axios'
                         'Content-Type' : 'multipart/form-data'
                     }
                 }).then(resp => {
-                    console.log(resp.data.data)
+                    // console.log(resp.data.data)
+                    alert(resp.data.message)
                     this.getData()
+                    location.reload()
                 })
+            },
+            hapus(type_id){
+                if(confirm('Are you sure?')){
+                    this.axios.delete('/type/' + type_id).then(() =>
+                    {
+                        this.getData()
+                        location.reload()
+                    })
+                }
             }
             // uploadPhoto: function(e) {
             //     this.photo = e.target.files[0]

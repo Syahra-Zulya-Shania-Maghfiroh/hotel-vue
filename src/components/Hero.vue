@@ -3,7 +3,8 @@
     <div class="container text-left" style="font-weight: bold; color: #ffffff;">
         <h1 style="font-size: auto;">Wikusama Hotels</h1>
         <p>We are focused on providing clients with the highest level <br> of comfort and excellent affordable rates</p>
-        <button class="btn btn-warning btn-fill btn-large">Book Now</button>
+        <router-link class="btn btn-warning btn-fill btn-large" to="/booknow">Book Now</router-link>
+        <!-- <button class="btn btn-warning btn-fill btn-large">Book Now</button> -->
     </div>
 </div>
     <div class="container">
