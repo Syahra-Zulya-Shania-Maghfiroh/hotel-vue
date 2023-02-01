@@ -19,7 +19,7 @@
                     <h5 style="color: #14274A">Rp. {{type.price}}</h5>
                     <p>{{type.desc}}</p>
                     <div class="container text-center mb-2">
-                    <router-link class="btn btn-warning text-light mr-2" :to="{path: '/detailroom/' + type.type_id}">See More</router-link>
+                    <router-link class="btn btn-warning text-light mr-2" :to="{name: 'droom', params: {type_id: type.type_id}}">See More</router-link>
                     <router-link class="btn btn-warning text-light mr-2" to="/booking">Update</router-link>
                     <!-- <router-link class="btn btn-danger text-light" to="/booking">Delete</router-link> -->
                     <button v-on:click="hapus(type.type_id)" class="btn btn-danger">Delete</button>

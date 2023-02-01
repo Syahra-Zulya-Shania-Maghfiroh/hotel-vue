@@ -47,7 +47,7 @@ const routes = [{
         component: Type
     },
     {
-        path: '/detailroom',
+        path: '/detailroom/:type_id',
         name: 'droom',
         component: DRoom
     },
