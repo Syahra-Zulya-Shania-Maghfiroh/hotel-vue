@@ -1,5 +1,9 @@
 <script setup>
+    import {ref} from 'vue';
+
+    import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
+    const date = ref(null);
 </script>
 <template>
 <Navbar/>
@@ -12,11 +16,11 @@
         <div class="row" style="margin-bottom: 60px">
             <div class="col-lg-4">
                 <label>Check in</label>
-                <input class="form-control" type="datetime-local" placeholder="Select Datetime">
+                <flat-pickr v-model="date" :config="config" class="form-control" placeholder="Select date" name="date"/>
             </div>
             <div class="col-lg-4">
                 <label>Check out</label>
-                <input class="form-control" type="datetime-local" placeholder="Select Datetime">
+                <flat-pickr v-model="date" :config="config" class="form-control" placeholder="Select date" name="date"/>
             </div>
             <div class="col-lg-4 d-flex align-items-center">
                 <button class="btn btn-warning">Search</button>
@@ -34,7 +38,7 @@ export default {
     },
     data() {
         return{
-            date: null
+            date: null,
         }
     }
 }

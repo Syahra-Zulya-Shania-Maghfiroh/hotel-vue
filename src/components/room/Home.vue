@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-lg-10">{{type.desc}}</div>
                         <div class="col-lg-2">
-                            <router-link class="btn btn-warning text-light" :to="{path: '/booking/' + type.type_id}">Rp.{{ type.price }} /night</router-link>
+                            <router-link class="btn btn-warning text-light" :to="{name: 'booking', params: {type_id: type.type_id}}">Rp.{{ type.price }} /night</router-link>
                         </div>
                     </div>
                 </li>

@@ -27,7 +27,7 @@ const routes = [{
         component: Room
     },
     {
-        path: '/booking',
+        path: '/booking/:type_id',
         name: 'booking',
         component: Booking
     },
