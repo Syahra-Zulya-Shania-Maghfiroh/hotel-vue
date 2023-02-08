@@ -5,8 +5,10 @@ import Booking from '../views/Booking.vue'
 import Manage from '../components/manage/Manage.vue'
 import Type from '../components/manage/Type.vue'
 import DRoom from '../components/manage/DRoom.vue'
+import Order from '../components/manage/Order.vue'
 import Rooms from '../components/room/Home.vue'
 import BookNow from '../components/room/BookNow.vue'
+import Receipt from '../views/Receipt.vue'
 
 // import axios from 'axios'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
@@ -32,6 +34,11 @@ const routes = [{
         component: Booking
     },
     {
+        path: '/receipt',
+        name: 'receipt',
+        component: Receipt
+    },
+    {
         path: '/booknow',
         name: 'booknow',
         component: BookNow
@@ -50,6 +57,11 @@ const routes = [{
         path: '/detailroom/:type_id',
         name: 'droom',
         component: DRoom
+    },
+    {
+        path: '/m-order',
+        name: 'order',
+        component: Order
     },
     {
         path: '/about',

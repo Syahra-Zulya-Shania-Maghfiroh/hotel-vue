@@ -25,7 +25,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <router-link class="dropdown-item" to="/m-user">USER</router-link>
                             <router-link class="dropdown-item" to="/m-type">ROOM TYPE</router-link>
-                            <router-link class="dropdown-item" to="/m-room">ROOM</router-link>
+                            <router-link class="dropdown-item" to="/m-order">BOOKING</router-link>
                         </div>
                     </li>
                     <li class="nav-item">

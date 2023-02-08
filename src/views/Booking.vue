@@ -1,10 +1,20 @@
 <script setup>
-    import {ref} from 'vue';
+    // import {ref} from 'vue';
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
+// import func from 'vue-editor-bridge';
 
-    const date = ref(null);
+    // const date = ref(null);
 </script>
+<!-- <template>
+    <h1>Booking</h1>
+    <h1 class="text-center mb-3 text-secondary">Datetime Picker</h1>
+    <form>
+        <flat-pickr v-model="date" :config="{enableTime: true, dateFormat: 'Y-m-d H:i'}"></flat-pickr>
+    </form>
+    
+</template> -->
+        <!-- <input class="form-control" type="datetime-local" placeholder="Select Datetime"> -->
 <template>
     <div class="container" style="padding: 50px 0 50px 0">
         <h2 style="text-align: center">Booking Information</h2>
@@ -57,6 +67,11 @@
             }
         },
         methods: {
+            // getData: function(){
+            //     this.axios.get('/type').then(resp => {
+            //         this.list_type = resp.data;
+            //     })
+            // },
             getDetail: function(){
                 this.axios.get('/type/' + this.$route.params.type_id).then(resp => {
                     this.list_type = resp.data;
@@ -74,11 +89,12 @@
                     type_id : this.type_id
                 }
                 this.axios.post('/orders', form).then(resp => {
-                    this.list_type = resp.data.data;
+                    window.open('/orders/pdf/' + resp.data.order_id, '_blank');
                 })
             }
         },
         mounted(){
+            // this.getData()
             this.getDetail()
         }
     }
