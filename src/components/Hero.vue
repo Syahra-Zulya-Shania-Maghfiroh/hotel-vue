@@ -3,18 +3,11 @@
     <div class="container text-left" style="font-weight: bold; color: #ffffff;">
         <h1 style="font-size: auto;">Wikusama Hotels</h1>
         <p>We are focused on providing clients with the highest level <br> of comfort and excellent affordable rates</p>
-        <router-link class="btn btn-warning btn-fill btn-large" to="/booknow">Book Now</router-link>
-        <!-- <button class="btn btn-warning btn-fill btn-large">Book Now</button> -->
+        <router-link class="btn btn-warning btn-fill btn-large me-md-2" to="/booknow">Book Now</router-link>
+        <router-link class="btn btn-outline-warning" to="/receipt">Already Book?</router-link>
     </div>
 </div>
     <div class="container">
-        <!-- <section class="cover" style="background-size: cover; background-position: center; padding: 200px 0 200px 0;">
-            <div class="container text-left" style="font-weight: bold; color: #ffffff;">
-                <h1 style="font-size: auto;">Wikusama Hotels</h1>
-                <p>We are focused on providing clients with the highest level <br> of comfort and excellent affordable rates</p>
-                <button class="btn btn-warning btn-fill btn-large">Book Now</button>
-            </div>
-        </section> -->
         <div class="welcome" style="text-align: center; padding: 50px 0 50px 0">
             <h6 style="color: #ffd700">WELCOME TO WIKUSAMA HOTEL</h6>
             <h2 style="margin-bottom: 2em">You'll Never Want To Leave</h2>
