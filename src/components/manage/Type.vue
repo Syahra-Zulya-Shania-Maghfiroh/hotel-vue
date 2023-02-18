@@ -6,7 +6,7 @@
                 <h3>All Type Room</h3>
             </div>
             <div class="col-lg-2">
-                <button type="button" data-toggle="modal" data-target="#AddModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
+                <button type="button" data-toggle="modal" data-target="#typeModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
             </div>
         </div>
     </div>
@@ -20,7 +20,8 @@
                     <p>{{type.desc}}</p>
                     <div class="container text-center mb-2">
                     <router-link class="btn btn-warning text-light mr-2" :to="{name: 'droom', params: {type_id: type.type_id}}">See More</router-link>
-                    <router-link class="btn btn-warning text-light mr-2" to="/booking">Update</router-link>
+                    <!-- <router-link class="btn btn-warning text-light mr-2" to="/booking">Update</router-link> -->
+                    <button v-on:click="editType(type)" class="btn btn-warning text-light mr-2" data-toggle="modal" data-target="#typeModal">Update</button>
                     <!-- <router-link class="btn btn-danger text-light" to="/booking">Delete</router-link> -->
                     <button v-on:click="hapus(type.type_id)" class="btn btn-danger">Delete</button>
                     </div>
@@ -28,36 +29,37 @@
             </ul>
         </div>
     </div>
-    <!-- Add Modal -->
-    <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Type Modal -->
+    <div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> {{ action }} Data Type Room</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Data Type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form @submit.prevent="addType">
+                <form>
                     <div class="mb-3">
                         <label for="">Type Name :</label>
                         <input type="text" v-model="type_name" class="form-control" required>
                     </div>  
                     <div class="mb-3">
-                        <label for="">Price</label>
+                        <label for="">Price :</label>
                         <input type="text" v-model="price" class="form-control" required>       
                     </div>
                     <div class="mb-3">
-                        <label for="">Description</label>
-                        <textarea v-model="desc" class="form-control" required style="height: 100px" @keypress.enter="saveData()"></textarea>
+                        <label for="">Description :</label>
+                        <textarea v-model="desc" class="form-control" required style="height: 100px"></textarea>
                     </div>   
                     <div class="mb-3">
-                        <label for="">Photo</label>
+                        <label for="">Photo :</label>
+                        <br>
                         <input type="file" ref="file" v-on:change="uploadPhoto">
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-warning" type="submit">Tambah</button>
+                        <button v-on:click="saveData()" class="btn btn-warning">Save</button>
                     </div>
                 </form>
             </div>
@@ -68,11 +70,6 @@
 
 <script>
 import Manage from '@/components/manage/Manage.vue'
-import axios from 'axios'
-// import axios from 'axios'
-
-// import axios from 'axios'
-// import Button from '@/components/manage/Button.vue'
 
     export default{
         name: 'TypeView',
@@ -83,8 +80,10 @@ import axios from 'axios'
                 type_name: '',
                 price: '',
                 desc: '',
+                photo: '',
                 photo_name: '',
-                photo_path: ''
+                photo_path: '',
+                action: ''
             }
         },
         components: {
@@ -100,30 +99,62 @@ import axios from 'axios'
             uploadPhoto(e) {
                 this.photo = e.target.files[0];
             },
-            addType() {
-                let formData = new FormData();
-                formData.append('type_name', this.type_name);
-                formData.append('price', this.price);
-                formData.append('desc', this.desc);
-                formData.append('photo', this.photo);
-
-                axios.post('/type', formData, {
-                    headers: {
-                        'Content-Type' : 'multipart/form-data'
-                    }
-                }).then(resp => {
-                    // console.log(resp.data.data)
-                    alert(resp.data.message)
-                    this.getData()
-                    location.reload()
-                })
+            addType: function() {
+                this.type_id = "",
+                this.type_name = "",
+                this.desc = "",
+                this.price = "",
+                this.photo = "",
+                this.action = "insert"
             },
+            editType: function(typeData){
+                console.log('aaaaaaaaa')
+                this.type_id = typeData.type_id,
+                this.type_name = typeData.type_name,
+                this.desc = typeData.desc,
+                this.price = typeData.price,
+                this.photo = typeData.photo
+                this.action = "update"
+            },
+            saveData: function() { 
+                let formData = new FormData(); 
+                formData.append('type_id',this.type_id); 
+                formData.append('type_name', this.type_name);
+                formData.append('desc', this.desc); 
+                formData.append('price', this.price); 
+                
+                // if(this.photo) { 
+                    formData.append('photo', this.photo); 
+                    // formData.append('photo_name', this.photo_name);
+                    // formData.append('photo_path', this.photo_path);
+                // } 
+                
+                if (this.action === 'insert') { 
+                    this.axios.post('/type', formData) 
+                    .then(resp => { 
+                        this.list_type = resp.data.data; 
+                    }) 
+                    .catch(error => { 
+                        console.log(error); 
+                    });
+                } else {
+                    this.axios.post('/type/' + this.type_id, formData) 
+                    .then(resp => {
+                        this.list_type = resp.data.data;
+                    }) 
+                    .catch(error => { 
+                        console.log(error); }); 
+                }
+                this.getData(); 
+            },
+
+
             hapus(type_id){
                 if(confirm('Are you sure?')){
                     this.axios.delete('/type/' + type_id).then(() =>
                     {
                         this.getData()
-                        location.reload()
+                        // location.reload()
                     })
                 }
             }
