@@ -41,7 +41,7 @@
             <div class="col-lg-6">
                 <div class="standard card text-white" width="50%" style="width: auto; margin-bottom: 1em; padding: 100px 0 100px 0; text-align: bottom">
                     <div class="card-body">
-                        <h3 class="text-bottom">Standard Room</h3>
+                        <h3 class="text-bottom">Standard syahra Room</h3>
                         <!-- <router-link class="btn btn-warning" to="/booking/1">Booking</router-link> -->
                         <button class="btn btn-warning" @click="showModal = true">Booking</button>
                     </div>
