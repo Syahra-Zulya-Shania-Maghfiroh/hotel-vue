@@ -12,7 +12,7 @@
         <h6 style="color: #B0B0B0; text-align: center; margin-bottom: 60px">Please fill up the blank fields below</h6>
         <div class="row">
             <div class="col-lg-8" v-for="type in list_type" :key="type.type_id">
-                <h4>{{ type.type_name }} Room</h4>
+                <h4 style="text-transform: capitalize">{{ type.type_name }} Room</h4>
                 <img :src="'http://127.0.0.1:8000/images/' + type.photo_name" alt="Gambar" style="width: 45rem; margin-bottom: 2rem">
             </div>
             <div class="col-lg-4">
@@ -80,7 +80,8 @@
                     type_id : this.type_id
                 }
                 this.axios.post('/orders', form).then(resp => {
-                    window.open('/orders/pdf/' + resp.data.order_id, '_blank');
+                    window.open('/orders/receipt/' + resp.data.order_id, '_blank');
+                    console.log(resp.data.order_id)
                 })
             }
         },

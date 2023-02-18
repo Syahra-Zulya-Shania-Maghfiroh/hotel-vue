@@ -6,6 +6,7 @@ import Login from '../components/Login.vue'
 import Manage from '../components/manage/Manage.vue'
 import Type from '../components/manage/Type.vue'
 import DRoom from '../components/manage/DRoom.vue'
+import User from '../components/manage/User.vue'
 import Order from '../components/manage/Order.vue'
 import Rooms from '../components/room/Home.vue'
 import BookNow from '../components/room/BookNow.vue'
@@ -40,7 +41,7 @@ const routes = [{
         component: Booking
     },
     {
-        path: '/receipt',
+        path: '/orders/receipt',
         name: 'receipt',
         component: Receipt
     },
@@ -63,6 +64,11 @@ const routes = [{
         path: '/detailroom/:type_id',
         name: 'droom',
         component: DRoom
+    },
+    {
+        path: '/m-user',
+        name: 'user',
+        component: User
     },
     {
         path: '/m-order',

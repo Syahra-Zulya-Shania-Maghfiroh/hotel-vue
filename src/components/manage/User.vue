@@ -1,8 +1,3 @@
-<script setup>
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
-</script>
-
 <template>
   <Navbar />
   <div class="landing" style="padding: 250px 0 250px 0; margin-bottom: 60px">
@@ -14,7 +9,14 @@ import "flatpickr/dist/flatpickr.css";
     </div>
   </div>
   <div class="container">
-    <h3>All User Data</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Data User</h3>
+        </div>
+        <div class="col-lg-6">
+            <button type="button" v-on:click="addUser()" data-toggle="modal" data-target="#userModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
+        </div>
+    </div>
     <div class="rounded h-100 p-4">
       <table class="table">
         <thead>
@@ -33,14 +35,58 @@ import "flatpickr/dist/flatpickr.css";
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
             <td>
+                <button v-on:click="editUser(user)" class="btn btn-warning mx-2" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
+                <button v-on:click="hapus(user.id)" class="btn btn-danger"><i class="far fa-trash-alt"></i></button> 
             </td>
-            <td>500</td>
-            <td></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Data User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="">Username :</label>
+                    <input type="text" v-model="name" class="form-control" required>       
+                </div>
+                <div class="mb-3">
+                    <label for="">Email :</label>
+                    <input type="email" v-model="email" class="form-control" required>       
+                </div>
+                <div class="mb-3">
+                    <label for="">Password :</label>
+                    <input type="password" v-model="password" class="form-control" required>       
+                </div>
+                <div class="mb-3">
+                    <label for="">Password Confirm :</label>
+                    <input type="password" v-model="password_confirmation" class="form-control" required>       
+                </div>
+                <div class="mb-3">
+                    <label for="">Role :</label>
+                    <select v-model="role" class="form-control" required>
+                        <!-- <option value="">---Select Role---</option> -->
+                        <option value="receptionist">Receptionist</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <button v-on:click="saveData()" class="btn btn-warning">Save</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -58,7 +104,7 @@ export default {
   },
   methods: {
     getData: function(){ 
-        this.axios.get('/type').then(resp => { 
+        this.axios.get('/user').then(resp => { 
             this.list_user = resp.data.data; 
             console.log(this.list_user); 
         }) 
