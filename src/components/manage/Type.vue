@@ -20,9 +20,7 @@
                     <p>{{type.desc}}</p>
                     <div class="container text-center mb-2">
                     <router-link class="btn btn-warning text-light mr-2" :to="{name: 'droom', params: {type_id: type.type_id}}">See More</router-link>
-                    <!-- <router-link class="btn btn-warning text-light mr-2" to="/booking">Update</router-link> -->
                     <button v-on:click="editType(type)" class="btn btn-warning text-light mr-2" data-toggle="modal" data-target="#typeModal">Update</button>
-                    <!-- <router-link class="btn btn-danger text-light" to="/booking">Delete</router-link> -->
                     <button v-on:click="hapus(type.type_id)" class="btn btn-danger">Delete</button>
                     </div>
                 </li>
@@ -108,7 +106,6 @@ import Manage from '@/components/manage/Manage.vue'
                 this.action = "insert"
             },
             editType: function(typeData){
-                console.log('aaaaaaaaa')
                 this.type_id = typeData.type_id,
                 this.type_name = typeData.type_name,
                 this.desc = typeData.desc,

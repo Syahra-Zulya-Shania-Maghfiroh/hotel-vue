@@ -104,10 +104,56 @@ export default {
   },
   methods: {
     getData: function(){ 
-        this.axios.get('/user').then(resp => { 
-            this.list_user = resp.data.data; 
-            console.log(this.list_user); 
-        }) 
+      this.axios.get('/user').then(resp => { 
+          this.list_user = resp.data.data; 
+          console.log(this.list_user); 
+      }) 
+    },
+    addUser: function(){
+      this.id = "",
+      this.name = "",
+      this.password = "",
+      this.role = "",
+      this.password_confirmation = "",
+      this.action = "insert"
+    },
+    editUser: function(userData){
+      this.id = userData.id,
+      this.name = userData.name,
+      this.email = userData.email,
+      this.password = userData.password,
+      this.password_confirmation = userData.password_confirmation,
+      this.action = "update"
+    },
+    saveData: function(){
+      let form = {
+        'id' : this.id,
+        'name' : this.name,
+        'email' : this.email,
+        'password' : this.password,
+        'password_confirmation' : this.password_confirmation,
+      }
+
+      console.log(this.action);
+
+      if(this.action === "insert"){
+          this.axios.post('/user', form).then(resp => {
+              this.list_user = resp.data.data
+          })
+      } else {
+          this.axios.put('/user/' + this.id, form).then(resp => {
+              this.list_user = resp.data.data
+          })
+      }
+      this.getRoom()
+    },
+    hapus(id){
+      if(confirm('Are you sure?')){
+        this.axios.delete('/user/' + id).then(() =>
+        {
+          location.reload()
+        })
+      }
     }
   },
   mounted(){
