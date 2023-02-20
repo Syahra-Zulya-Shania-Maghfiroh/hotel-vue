@@ -99,7 +99,13 @@ export default {
   },
   data: function () {
     return {
-        list_user: []
+        list_user: [],
+        id: '',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        action: ''
     };
   },
   methods: {
@@ -122,6 +128,7 @@ export default {
       this.name = userData.name,
       this.email = userData.email,
       this.password = userData.password,
+      this.role = userData.role,
       this.password_confirmation = userData.password_confirmation,
       this.action = "update"
     },
@@ -131,21 +138,25 @@ export default {
         'name' : this.name,
         'email' : this.email,
         'password' : this.password,
+        'role' : this.role,
         'password_confirmation' : this.password_confirmation,
       }
 
       console.log(this.action);
 
       if(this.action === "insert"){
-          this.axios.post('/user', form).then(resp => {
-              this.list_user = resp.data.data
+          this.axios.post('/register', form).then(resp => {
+              this.list_user = resp.data;
+              console.log(this.list_user)
           })
       } else {
           this.axios.put('/user/' + this.id, form).then(resp => {
-              this.list_user = resp.data.data
+            console.log(this.id)
+              this.list_user = resp.data.data;
+              console.log(this.list_user)
           })
       }
-      this.getRoom()
+      this.getData()
     },
     hapus(id){
       if(confirm('Are you sure?')){
