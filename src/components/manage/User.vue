@@ -10,12 +10,12 @@
   </div>
   <div class="container">
     <div class="row">
-        <div class="col-lg-6">
-            <h3>Data User</h3>
-        </div>
-        <div class="col-lg-6">
-            <button type="button" v-on:click="addUser()" data-toggle="modal" data-target="#userModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
-        </div>
+      <div class="col-lg-10">
+          <h3>All User</h3>
+      </div>
+      <div class="col-lg-2">
+          <button type="button" data-toggle="modal" data-target="#userModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
+      </div>
     </div>
     <div class="rounded h-100 p-4">
       <table class="table">

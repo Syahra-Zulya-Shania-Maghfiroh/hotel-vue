@@ -2,10 +2,10 @@
 <Manage/>
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
-            <h3>Data Type Room </h3>
+        <div class="col-lg-10">
+            <h3>All Room</h3>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <button type="button" v-on:click="addRoom()" data-toggle="modal" data-target="#roomModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
         </div>
     </div>

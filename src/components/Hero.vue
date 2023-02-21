@@ -4,7 +4,7 @@
         <h1 style="font-size: auto;">Wikusama Hotels</h1>
         <p>We are focused on providing clients with the highest level <br> of comfort and excellent affordable rates</p>
         <router-link class="btn btn-warning btn-fill btn-large me-md-2" to="/booknow">Book Now</router-link>
-        <router-link class="btn btn-outline-warning" to="/receipt">Already Book?</router-link>
+        <router-link class="btn btn-outline-warning" to="/orders/receipt">Already Book?</router-link>
     </div>
 </div>
     <div class="container">

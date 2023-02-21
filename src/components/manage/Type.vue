@@ -6,7 +6,7 @@
                 <h3>All Type Room</h3>
             </div>
             <div class="col-lg-2">
-                <button type="button" data-toggle="modal" data-target="#typeModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
+                <button type="button" v-on:click="addType()" data-toggle="modal" data-target="#typeModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
             </div>
         </div>
     </div>

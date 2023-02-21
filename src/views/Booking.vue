@@ -79,9 +79,14 @@
                     rooms_amount : this.rooms_amount,
                     type_id : this.type_id
                 }
+
                 this.axios.post('/orders', form).then(resp => {
-                    window.open('/orders/receipt/' + resp.data.order_id, '_blank');
-                    console.log(resp.data.order_id)
+                    // setTimeout(() => {}, 1000);
+                    console.log(resp.data.order_number);
+
+                    window.open('/orders/receipt/' + resp.data.data.order_number, '_blank');
+                    console.log(resp.data.data.order_number)
+                    this.$router.push('/orders/receipt/' + this.receipt.order_number)
                 })
             }
         },

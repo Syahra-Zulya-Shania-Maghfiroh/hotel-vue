@@ -41,7 +41,7 @@ const routes = [{
         component: Booking
     },
     {
-        path: '/orders/receipt',
+        path: '/orders/receipt/:order_number',
         name: 'receipt',
         component: Receipt
     },
