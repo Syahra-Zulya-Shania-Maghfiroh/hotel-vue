@@ -65,7 +65,12 @@ export default {
             localStorage.setItem('role', resp.data.user.role)
             console.log("aaaaaaaaaaaa")
             console.log(resp.data.user.role)
-            window.location.href = ('/')
+            if (resp.data.user.role === 'admin'){
+                this.$router.push('/m-type')
+            } else if (resp.data.user.role === 'receptionist'){
+                this.$router.push('m-order')
+            }
+            // window.location.href = ('/')
         })
     }
     // login() {
