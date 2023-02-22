@@ -23,9 +23,14 @@
                             MANAGE
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div v-if="role === 'admin'">
                             <router-link class="dropdown-item" to="/m-user">USER</router-link>
                             <router-link class="dropdown-item" to="/m-type">ROOM TYPE</router-link>
-                            <router-link class="dropdown-item" to="/m-order">BOOKING</router-link>
+                            </div>
+
+                            <div v-else-if="role ==='receptionist'">
+                                <router-link class="dropdown-item" to="/m-order">BOOKING</router-link>
+                            </div>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -39,6 +44,14 @@
 
 <script>
 export default {
-    name: 'Navbar_Page'
+    name: 'Navbar_Page',
+    data() {
+        return {
+            role: null,
+        }
+    },
+    mounted() {
+        this.role = localStorage.getItem("role")
+    }
 }
 </script>
