@@ -18,23 +18,26 @@
                     <!-- <li class="nav-item">
                         <router-link class="nav-link" to="/manage">MANAGE</router-link>
                     </li> -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            MANAGE
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <div v-if="role === 'admin'">
-                            <router-link class="dropdown-item" to="/m-user">USER</router-link>
-                            <router-link class="dropdown-item" to="/m-type">ROOM TYPE</router-link>
-                            </div>
+                    <template v-if="role === 'admin' && role === 'receptionist'">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                MANAGE
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div v-if="role === 'admin'">
+                                <router-link class="dropdown-item" to="/m-user">USER</router-link>
+                                <router-link class="dropdown-item" to="/m-type">ROOM TYPE</router-link>
+                                </div>
 
-                            <div v-else-if="role ==='receptionist'">
-                                <router-link class="dropdown-item" to="/m-order">BOOKING</router-link>
+                                <div v-else-if="role ==='receptionist'">
+                                    <router-link class="dropdown-item" to="/m-order">BOOKING</router-link>
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/contact">CONTACT</router-link>
+                        <!-- <router-link class="nav-link" @click="logout()">LOGOUT</router-link> -->
+                        <button class="nav-link" @click="logout()">LOGOUT</button>
                     </li>
                 </ul>
             </div>
@@ -48,6 +51,19 @@ export default {
     data() {
         return {
             role: null,
+        }
+    },
+    methods: {
+        logout(){
+            this.axios.post('/logout').then(resp => {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                localStorage.removeItem('role')
+                console.log(resp)
+
+                this.$router.push('/login')
+            })
+
         }
     },
     mounted() {

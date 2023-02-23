@@ -55,23 +55,23 @@ export default {
   },
   methods: {
     async login(){
-        let credential = {
-            email : this.email,
-            password : this.password
+      let credential = {
+        email : this.email,
+        password : this.password
+      }
+      this.axios.post('/login', credential).then(resp =>{
+        localStorage.setItem('token', resp.data.access_token)
+        localStorage.setItem('user', JSON.stringify(resp.data.user.email))
+        localStorage.setItem('role', resp.data.user.role)
+        // console.log("aaaaaaaaaaaa")
+        // console.log(resp.data.user.role)
+        if (resp.data.user.role === 'admin'){
+            this.$router.push('/m-type')
+        } else if (resp.data.user.role === 'receptionist'){
+            this.$router.push('m-order')
         }
-        this.axios.post('/login', credential).then(resp =>{
-            localStorage.setItem('token', resp.data.access_token)
-            localStorage.setItem('user', JSON.stringify(resp.data.user.email))
-            localStorage.setItem('role', resp.data.user.role)
-            console.log("aaaaaaaaaaaa")
-            console.log(resp.data.user.role)
-            if (resp.data.user.role === 'admin'){
-                this.$router.push('/m-type')
-            } else if (resp.data.user.role === 'receptionist'){
-                this.$router.push('m-order')
-            }
-            // window.location.href = ('/')
-        })
+          // window.location.href = ('/')
+      })
     }
     // login() {
     //   this.axios
