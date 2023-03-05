@@ -81,7 +81,6 @@ export default {
     },
 
     methods: {
-    
         searchData() { 
             this.axios.post('/datefilter', { 
                 check_in: this.check_in,

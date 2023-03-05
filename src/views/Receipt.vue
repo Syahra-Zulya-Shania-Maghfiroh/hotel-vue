@@ -56,7 +56,7 @@
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ selected.type_name }}</td>
               <td>{{ selected.room_number }}</td>
-              <td>{{ selected.price }}</td>
+              <td>Rp {{ selected.price }}</td>
             </tr>
             <!-- <tr>
                             <th scope="row">2</th>
@@ -67,7 +67,7 @@
           </tbody>
           <tfoot>
             <td style="background-color: #fff5c1">
-              <b>Grand Total : <span style="float: right">{{ grands }}</span></b>
+              <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b>
             </td>
           </tfoot>
         </table>
@@ -87,6 +87,7 @@ export default {
       room_selected: [],
       grands: [],
       order_id: "",
+      // order_date: "Y-m-d",
       order_number: this.$route.params.order_number,
     };
   },

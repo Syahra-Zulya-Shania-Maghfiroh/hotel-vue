@@ -35,9 +35,10 @@
                             </div>
                         </li>
                     </template>
-                    <li class="nav-item">
-                        <!-- <router-link class="nav-link" @click="logout()">LOGOUT</router-link> -->
-                        <button class="nav-link" @click="logout()">LOGOUT</button>
+                    <li class="nav-item" v-if="role === 'admin' && role === 'receptionist'">
+                        <!-- <router-link class="nav-link"> -->
+                            <button class="btn nav-link" @click="logout()">LOGOUT</button>
+                        <!-- </router-link> -->
                     </li>
                 </ul>
             </div>

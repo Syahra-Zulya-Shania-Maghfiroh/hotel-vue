@@ -11,6 +11,7 @@ import Order from '../components/manage/Order.vue'
 import Rooms from '../components/room/Home.vue'
 import BookNow from '../components/room/BookNow.vue'
 import Receipt from '../views/Receipt.vue'
+import FindReceipt from '../views/FindReceipt.vue'
 
 // import axios from 'axios'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
@@ -43,7 +44,13 @@ const routes = [{
     {
         path: '/orders/receipt/:order_number',
         name: 'receipt',
-        component: Receipt
+        component: Receipt,
+        props: true,
+    },
+    {
+        path: '/orders/receipt',
+        name: 'findreceipt',
+        component: FindReceipt
     },
     {
         path: '/booknow',
