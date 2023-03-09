@@ -49,12 +49,12 @@
 </style>
 
 <script>
-import Receipt from '@/views/Receipt.vue'
+// import Receipt from '@/views/Receipt.vue'
 
 export default {
     name: "FindReceipt",
     components:  {
-        Receipt
+        // Receipt
     },
     data: function() {
         return {

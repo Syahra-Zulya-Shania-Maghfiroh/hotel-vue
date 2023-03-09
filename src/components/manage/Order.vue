@@ -5,43 +5,81 @@ import "flatpickr/dist/flatpickr.css";
 
 <template>
   <Navbar />
-  <div class="landing" style="padding: 250px 0 250px 0; margin-bottom: 60px">
-    <div
-      class="container text-center"
-      style="font-weight: bold; color: #ffffff"
-    >
-      <h1>Order Data</h1>
-    </div>
-  </div>
+  <section class="bg-warning" style="height: 100px; z-index: 1">
+  </section>
   <div class="container">
-    <div class="row">
-      <div
-        class="form-group"
-        :style="{
-          width: '15rem',
-          'pointer-events': guest_name.length > 0 ? 'none' : '',
-        }"
-      >
-        <label for="">Filter Check In</label>
-        <flat-pickr
-          v-model="check_in"
-          :config="config"
-          class="form-control"
-          placeholder="Select date"
-          name="date"
-        />
+      <div style="position: relative; z-index: 2">
+          <div class="row" style="margin-top: -3rem; margin-bottom: 3rem">
+              <div class="col-lg-4">
+                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                      <i class="fas fa-chart-line fa-3x text-warning"></i>
+                      <div class="ms-3">
+                          <p class="mb-2">Total Bookings</p>
+                          <h4 class="mb-0">{{ booking }}</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                      <i class="fas fa-chart-bar fa-3x text-warning"></i>
+                      <div class="ms-3">
+                          <p class="mb-2">Total Check In</p>
+                          <h4 class="mb-0">{{ check_in }}</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                      <i class="fas fa-chart-area fa-3x text-warning"></i>
+                      <div class="ms-3">
+                          <p class="mb-2">Total Revenue</p>
+                          <h4 class="mb-0">$1234</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="form-group" style="width: 15rem">
-        <label for="">Filter Guest Name</label>
-        <input
-          type="text"
-          v-model="guest_name"
-          class="form-control"
-          :disabled="check_in !== null"
-        />
+    <section class="bg-light">
+      <div class="container d-flex" style="margin-top: 2rem">
+        <div class="mr-auto p-2">
+          <h4 style="margin-top: 2rem">Filter Order</h4>
+        </div>
+        <div class="p-2">
+          <div
+            class="form-group"
+            :style="{
+              width: '15rem', 
+              'pointer-events': guest_name.length > 0 ? 'none' : '',
+            }"
+          >
+            <!-- <label for="">Filter Check In</label> -->
+            <flat-pickr
+              v-model="check_in"
+              :config="config"
+              class="form-control"
+              style="margin-top: 2rem"
+              placeholder="Select date"
+              name="date"
+            />
+          </div>
+        </div>
+        <div class="p-2">
+
+          <div class="form-group" style="width: 15rem; margin-top: 2rem">
+            <!-- <label for="">Filter Guest Name</label> -->
+            <input
+              type="text"
+              v-model="guest_name"
+              class="form-control"
+              placeholder="Input name"
+              :disabled="check_in !== null"
+            />
+          </div>
+        </div>
       </div>
+    <div class="row" style="margin-left: 1rem">
     </div>
-    <h3>All Order Data</h3>
+    <!-- <h3>All Order Data</h3> -->
     <div class="rounded h-100 p-4">
       <table class="table">
         <thead>
@@ -49,10 +87,9 @@ import "flatpickr/dist/flatpickr.css";
             <th scope="col">#</th>
             <th scope="col">Order Number</th>
             <th scope="col">Customer Name</th>
+            <th scope="col">Status</th>
             <th scope="col">Rooms Amount</th>
             <th scope="col">Check In Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Grand Total</th>
           </tr>
         </thead>
         <tbody>
@@ -60,8 +97,6 @@ import "flatpickr/dist/flatpickr.css";
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ order.order_number }}</td>
             <td>{{ order.guest_name }}</td>
-            <td>{{ order.rooms_amount }}</td>
-            <td>{{ order.check_in }}</td>
             <td>
               <!-- jika status new -->
               <template v-if="order.status === 'New'">
@@ -85,7 +120,7 @@ import "flatpickr/dist/flatpickr.css";
                     class="status-btn"
                     @click="order.showDropdown = !order.showDropdown"
                   >
-                    <p>{{ order.status }} ▼</p>
+                    {{ order.status }} ▼
                     <div v-if="order.showDropdown">
                       <p @click="updateStatus(order.order_id, 'Check Out')">
                         Check Out
@@ -98,12 +133,13 @@ import "flatpickr/dist/flatpickr.css";
                 {{ order.status }}
               </template>
             </td>
-            <td>500</td>
-            <td></td>
+            <td>{{ order.rooms_amount }}</td>
+            <td>{{ order.check_in }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    </section>
   </div>
 </template>
 
@@ -168,6 +204,10 @@ export default {
     getOrder: function () {
       this.axios.get("/orders").then((resp) => {
         this.list_order = resp.data.data;
+        this.booking = resp.data.booking;
+        this.check_in = resp.data.check_in;
+        console.log(this.check_in)
+        console.log(this.booking)
       });
     },
     updateStatus(order_id, status) {
@@ -201,21 +241,6 @@ export default {
       } else {
         this.getOrder;
       }
-      // if (this.check_in === null && this.guest_name === ''){
-      //     // jgn kembalikan apa2
-      //     return;
-      // }
-
-      // axios.post('/orderFilter', {
-      //     check_in: this.check_in !== null ? this.check_in : '',
-      //     guest_name: this.guest_name
-      // }).then(resp => {
-      //     this.list_order = resp.data.data
-      //     // this.getOrder()
-      //     // console.log(resp.data.data)
-      //     // console.log('aaaaaa')
-      //     // console.log(this.list_order)
-      // })
     },
     created() {
       this.filterOrders();

@@ -13,6 +13,9 @@ import BookNow from '../components/room/BookNow.vue'
 import Receipt from '../views/Receipt.vue'
 import FindReceipt from '../views/FindReceipt.vue'
 
+import Sidebar from '../components/Sidebar.vue'
+import Dashboard from '../components/Dashboard.vue'
+
 // import axios from 'axios'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
@@ -20,6 +23,16 @@ const routes = [{
         path: '/',
         name: 'home',
         component: HomeView
+    },
+    {
+        path: '/sidebar',
+        name: 'sidebar',
+        component: Sidebar
+    },
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard
     },
     {
         path: '/login',
