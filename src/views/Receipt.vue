@@ -1,6 +1,6 @@
 <template>
-  <div class="container" style="border: 2px solid black; height: 400px">
-    <div class="row">
+  <div class="container" style="border: 2px solid black; height: auto">
+    <div class="row" style="padding: 2rem">
       <div class="col-lg-6">
         <img src="..\assets\wikusama.png" alt="" width="50px" />
         <span style="font-weight: 500; margin-left: 10px">Wikusama Hotels</span>
@@ -11,13 +11,13 @@
     </div>
     <div
       class="row"
-      style="background-color: #fff5c1"
+      style="background-color: #fff5c1; padding: 2rem"
     >
       <div class="col-lg-6">
         <h6>Bookings From</h6>
-        <p>
-          <b>{{ receipts.data.customer_name }}</b> <br />
-          {{ receipts.data.customer_email }}
+        <p style="margin-top: 25px">
+          <b>{{ receipts.data.customer_name }}</b>
+          ({{ receipts.data.customer_email }})
         </p>
       </div>
       <div class="col-lg-6">
@@ -48,6 +48,7 @@
               <th scope="col">#</th>
               <th scope="col">Type Room</th>
               <th scope="col">Room Number</th>
+              <th scope="col">Days Total</th>
               <th scope="col">Price</th>
             </tr>
           </thead>
@@ -56,6 +57,7 @@
               <th scope="row">{{ index + 1 }}</th>
               <td>{{ selected.type_name }}</td>
               <td>{{ selected.room_number }}</td>
+              <td>{{ selected.days }}</td>
               <td>Rp {{ selected.price }}</td>
             </tr>
             <!-- <tr>
@@ -66,9 +68,25 @@
                         </tr> -->
           </tbody>
           <tfoot>
-            <td style="background-color: #fff5c1">
-              <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b>
+            <!-- <tr> -->
+
+            <!-- <td colspan="4"> -->
+              <!-- <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b> -->
+              <!-- <div class="d-flex flex-row-reverse">
+                <div class="p-2" style="background-color: #fff5c1">
+                  <b>Grand Total : <span style="float: right"></span></b>
+                </div>
+              </div> -->
+            <!-- </td> -->
+            <td colspan="5">
+              <!-- <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b> -->
+              <div class="d-flex flex-row-reverse">
+                <div class="p-2" style="background-color: #fff5c1">
+                  <b>Grand Total :<span style="float: right">Rp {{ grands }}</span></b>
+                </div>
+              </div>
             </td>
+            <!-- </tr> -->
           </tfoot>
         </table>
         <!-- <div style="background-color: #fff5c1; float: right"><b>Grand Total : <span style="float:right">Rp. 500.000</span></b></div> -->

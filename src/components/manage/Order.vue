@@ -5,40 +5,45 @@ import "flatpickr/dist/flatpickr.css";
 
 <template>
   <Navbar />
-  <section class="bg-warning" style="height: 100px; z-index: 1">
-  </section>
+  <section class="bg-warning" style="height: 100px; z-index: 1"></section>
   <div class="container">
-      <div style="position: relative; z-index: 2">
-          <div class="row" style="margin-top: -3rem; margin-bottom: 3rem">
-              <div class="col-lg-4">
-                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                      <i class="fas fa-chart-line fa-3x text-warning"></i>
-                      <div class="ms-3">
-                          <p class="mb-2">Total Bookings</p>
-                          <h4 class="mb-0">{{ booking }}</h4>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                      <i class="fas fa-chart-bar fa-3x text-warning"></i>
-                      <div class="ms-3">
-                          <p class="mb-2">Total Check In</p>
-                          <h4 class="mb-0">{{ check_in }}</h4>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                  <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                      <i class="fas fa-chart-area fa-3x text-warning"></i>
-                      <div class="ms-3">
-                          <p class="mb-2">Total Revenue</p>
-                          <h4 class="mb-0">$1234</h4>
-                      </div>
-                  </div>
-              </div>
+    <div style="position: relative; z-index: 2">
+      <div class="row" style="margin-top: -3rem; margin-bottom: 3rem">
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-chart-line fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Bookings</p>
+              <h4 class="mb-0">{{ booking }}</h4>
+            </div>
           </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-chart-bar fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Check In</p>
+              <h4 class="mb-0">{{ data_check }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-chart-area fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Revenue</p>
+              <h4 class="mb-0">$1234</h4>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
     <section class="bg-light">
       <div class="container d-flex" style="margin-top: 2rem">
         <div class="mr-auto p-2">
@@ -48,7 +53,7 @@ import "flatpickr/dist/flatpickr.css";
           <div
             class="form-group"
             :style="{
-              width: '15rem', 
+              width: '15rem',
               'pointer-events': guest_name.length > 0 ? 'none' : '',
             }"
           >
@@ -64,7 +69,6 @@ import "flatpickr/dist/flatpickr.css";
           </div>
         </div>
         <div class="p-2">
-
           <div class="form-group" style="width: 15rem; margin-top: 2rem">
             <!-- <label for="">Filter Guest Name</label> -->
             <input
@@ -77,68 +81,67 @@ import "flatpickr/dist/flatpickr.css";
           </div>
         </div>
       </div>
-    <div class="row" style="margin-left: 1rem">
-    </div>
-    <!-- <h3>All Order Data</h3> -->
-    <div class="rounded h-100 p-4">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Order Number</th>
-            <th scope="col">Customer Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Rooms Amount</th>
-            <th scope="col">Check In Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(order, index) in list_order" :key="index.order_id">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ order.order_number }}</td>
-            <td>{{ order.guest_name }}</td>
-            <td>
-              <!-- jika status new -->
-              <template v-if="order.status === 'New'">
-                <div class="status-dropdown">
-                  <button
-                    class="status-btn"
-                    @click="order.showDropdown = !order.showDropdown"
-                  >
-                    {{ order.status }} ▼
-                    <div v-if="order.showDropdown">
-                      <p @click="updateStatus(order.order_id, 'Check In')">
-                        Check In
-                      </p>
-                    </div>
-                  </button>
-                </div>
-              </template>
-              <template v-else-if="order.status === 'Check In'">
-                <div class="status-dropdown">
-                  <button
-                    class="status-btn"
-                    @click="order.showDropdown = !order.showDropdown"
-                  >
-                    {{ order.status }} ▼
-                    <div v-if="order.showDropdown">
-                      <p @click="updateStatus(order.order_id, 'Check Out')">
-                        Check Out
-                      </p>
-                    </div>
-                  </button>
-                </div>
-              </template>
-              <template v-else>
-                {{ order.status }}
-              </template>
-            </td>
-            <td>{{ order.rooms_amount }}</td>
-            <td>{{ order.check_in }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="row" style="margin-left: 1rem"></div>
+      <!-- <h3>All Order Data</h3> -->
+      <div class="rounded h-100 p-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Order Number</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Rooms Amount</th>
+              <th scope="col">Check In Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(order, index) in list_order" :key="index.order_id">
+              <th scope="row">{{ index + 1 }}</th>
+              <td>{{ order.order_number }}</td>
+              <td>{{ order.guest_name }}</td>
+              <td>
+                <!-- jika status new -->
+                <template v-if="order.status === 'New'">
+                  <div class="status-dropdown">
+                    <button
+                      class="status-btn"
+                      @click="order.showDropdown = !order.showDropdown"
+                    >
+                      {{ order.status }} ▼
+                      <div v-if="order.showDropdown">
+                        <p @click="updateStatus(order.order_id, 'Check In')">
+                          Check In
+                        </p>
+                      </div>
+                    </button>
+                  </div>
+                </template>
+                <template v-else-if="order.status === 'Check In'">
+                  <div class="status-dropdown">
+                    <button
+                      class="status-btn"
+                      @click="order.showDropdown = !order.showDropdown"
+                    >
+                      {{ order.status }} ▼
+                      <div v-if="order.showDropdown">
+                        <p @click="updateStatus(order.order_id, 'Check Out')">
+                          Check Out
+                        </p>
+                      </div>
+                    </button>
+                  </div>
+                </template>
+                <template v-else>
+                  {{ order.status }}
+                </template>
+              </td>
+              <td>{{ order.rooms_amount }}</td>
+              <td>{{ order.check_in }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
   </div>
 </template>
@@ -205,9 +208,9 @@ export default {
       this.axios.get("/orders").then((resp) => {
         this.list_order = resp.data.data;
         this.booking = resp.data.booking;
-        this.check_in = resp.data.check_in;
-        console.log(this.check_in)
-        console.log(this.booking)
+        this.data_check = resp.data.data_check;
+        console.log(this.data_check);
+        console.log(this.booking);
       });
     },
     updateStatus(order_id, status) {
