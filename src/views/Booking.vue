@@ -1,10 +1,10 @@
-<script setup>
-    // import {ref} from 'vue';
-    import flatPickr from 'vue-flatpickr-component';
-    import 'flatpickr/dist/flatpickr.css';
-    // import func from 'vue-editor-bridge';
+// <script setup>
+//     // import {ref} from 'vue';
+//     import flatPickr from 'vue-flatpickr-component';
+//     import 'flatpickr/dist/flatpickr.css';
+//     // import func from 'vue-editor-bridge';
 
-    // const date = ref(null);
+//     // const date = ref(null);
 </script>
 <template>
     <div class="container" style="padding: 50px 0 50px 0">
@@ -25,10 +25,28 @@
                     <input type="email" v-model="customer_email" class="form-control" required>      
 
                     <label for="">Check In</label>
-                    <flat-pickr v-model="check_in" :config="config" class="form-control" placeholder="Select date" name="date"/>
+<flat-pickr
+  v-model="check_in"
+  :config="checkInConfig"
+  class="form-control"
+  placeholder="Select date"
+  name="date"
+  :value="sessionStorage ? sessionStorage.getItem('check_in') : ''"
+/>
+{{ check_in }}
+<!-- add this line -->
+<label for="">Check Out</label>
+<flat-pickr
+  v-model="check_out"
+  :config="checkOutConfig"
+  class="form-control"
+  placeholder="Select date"
+  name="date"
+  :value="sessionStorage ? sessionStorage.getItem('check_out') : ''"
+/>
+{{ check_out }}
+<!-- add this line -->
 
-                    <label for="">Check Out</label>
-                    <flat-pickr v-model="check_out" :config="config" class="form-control" placeholder="Select date" name="date"/>
 
                     <label for="">Guest Name</label>
                     <input type="text" v-model="guest_name" class="form-control" required>    
@@ -46,12 +64,32 @@
 </template>
 
 <script>
+import flatPickr from "vue-flatpickr-component"; 
+import "flatpickr/dist/flatpickr.css"; 
+// import { fpFormatDate } from "vue-flatpickr-component";
+
     export default {
         name: "BookView",
         components: {
+            flatPickr
         },
         data(){
             return{
+                // check_in:null,
+                // check_out: null,
+                // checkInConfig: {
+                //     dateFormat: "Y-m-d",
+                //     onChange: () => {
+                //         this.checkOutConfig.minDate = this.check_in;
+                //     }
+                // },
+                // checkOutConfig: {
+                //     dateFormat: "Y-m-d",
+                //     disable: (date) => {
+                //         const minDate = fpFormatDate(this.check_in, "Y-m-d");
+                //         return date < minDate;
+                //     }
+                // },
                 date: null,
                 list_type : [],
                 type_id : this.$route.params.type_id,

@@ -5,6 +5,7 @@ import "flatpickr/dist/flatpickr.css";
 
 <template>
   <Navbar />
+  <p>{{role}}</p>
   <section class="bg-warning" style="height: 100px; z-index: 1"></section>
   <div class="container">
     <div style="position: relative; z-index: 2">
@@ -178,7 +179,7 @@ import "flatpickr/dist/flatpickr.css";
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "OrderView",
   components: {
@@ -205,37 +206,58 @@ export default {
   },
   methods: {
     getOrder: function () {
-      this.axios.get("/orders").then((resp) => {
+      let token = {
+        headers : {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }
+      // let header = authHeader();
+
+      this.axios.get("/orders", token).then((resp) => {
         this.list_order = resp.data.data;
         this.booking = resp.data.booking;
         this.data_check = resp.data.data_check;
+        // console.log(sessionStorage.getItem);
+        console.log("aaaaaaaaaa");
+        console.log(this.list_order);
         console.log(this.data_check);
         console.log(this.booking);
       });
     },
     updateStatus(order_id, status) {
+      let token = { 
+        headers : { 
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        } 
+      }
       let form = {
         status: status,
       };
-      this.axios.put("/orders/status/" + order_id, form).then((resp) => {
+      this.axios.put("/orders/status/" + order_id, form, token).then((resp) => {
         this.list_order = resp.data.status;
         this.showDropdown = false;
         this.getOrder();
         console.log("submitted");
       });
     },
-    filterOrders() {
+    filterOrders: function() {
+      let token = { 
+        headers : { 
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        } 
+      }
       if (this.guest_name !== "" && this.check_in === null) {
-        axios
-          .post("/orderFilter", {
+        this.axios
+          .post("/orderFilter", token, {
             guest_name: this.guest_name,
           })
           .then((resp) => {
-            this.list_order = resp.data.data;
+            this.list_order = resp;
+            console.log(this.list_order)
           });
       } else if (this.check_in !== null && this.guest_name === "") {
-        axios
-          .post("/orderFilter", {
+        this.axios
+          .post("/orderFilter", token, {
             check_in: this.check_in,
           })
           .then((resp) => {

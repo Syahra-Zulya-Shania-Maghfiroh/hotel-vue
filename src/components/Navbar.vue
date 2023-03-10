@@ -22,9 +22,6 @@
                     </li>
                 </ul>
                 <button class="btn nav-link" @click="logout()">LOGOUT</button>
-                <!-- <span class="navbar-text">
-                    Navbar text with an inline element
-                </span> -->
                 </div>
             </div>
         </nav>
@@ -54,6 +51,7 @@ export default {
             role: null,
         }
     },
+        // console.log("aaaaaaa");
     methods: {
         logout(){
             this.axios.post('/logout').then(resp => {

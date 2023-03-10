@@ -89,7 +89,11 @@ import Manage from '@/components/manage/Manage.vue'
         },
         methods: {
             getData: function(){
-                this.axios.get('/type').then(resp => {
+                let token = { headers : { 'Authorization': 'Bearer ' +
+localStorage.getItem('token') } }
+
+                console.log('aaaaaaaa')
+                this.axios.get('/type', token).then(resp => {
                     this.list_type = resp.data.data;
                     console.log(this.list_type);
                 })
@@ -114,6 +118,11 @@ import Manage from '@/components/manage/Manage.vue'
                 this.action = "update"
             },
             saveData: function() { 
+                let token = { 
+                    headers : { 
+                        'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                    } 
+                }
                 let formData = new FormData(); 
                 formData.append('type_id',this.type_id); 
                 formData.append('type_name', this.type_name);
@@ -125,9 +134,9 @@ import Manage from '@/components/manage/Manage.vue'
                     // formData.append('photo_name', this.photo_name);
                     // formData.append('photo_path', this.photo_path);
                 // } 
-                
+
                 if (this.action === 'insert') { 
-                    this.axios.post('/type', formData) 
+                    this.axios.post('/type', formData, token) 
                     .then(resp => { 
                         this.list_type = resp.data.data; 
                     }) 
@@ -135,7 +144,7 @@ import Manage from '@/components/manage/Manage.vue'
                         console.log(error); 
                     });
                 } else {
-                    this.axios.post('/type/' + this.type_id, formData) 
+                    this.axios.post('/type/' + this.type_id, formData, token) 
                     .then(resp => {
                         this.list_type = resp.data.data;
                     }) 
@@ -147,45 +156,19 @@ import Manage from '@/components/manage/Manage.vue'
 
 
             hapus(type_id){
+                let token = { headers : { 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                    } 
+                }
+
                 if(confirm('Are you sure?')){
-                    this.axios.delete('/type/' + type_id).then(() =>
+                    this.axios.delete('/type/' + type_id, token).then(() =>
                     {
                         this.getData()
                         // location.reload()
                     })
                 }
             }
-            // uploadPhoto: function(e) {
-            //     this.photo = e.target.files[0]
-            // },
-            // upload: function() {
-            //     let form = new FormData()
-            //     form.append('photo', this.photo)
-
-            //     this.axios.post('/type', form).then(resp =>
-            //     { 
-            //         console.log(resp.data.data)
-            //     });
-            //     this.getData()
-            // },
-            // Add: function() {
-            //     this.type_id = "",
-            //     this.type_name = "",
-            //     this.desc = "",
-            //     this.price = ""
-            // },
-            // Save: function() {
-            //     let form = {
-            //         'type_name' : this.type_name,
-            //         'price' : this.price,
-            //         'desc' : this.desc,
-            //         'photo' : this.photo
-            //     }
-            //     this.axios.post('/type' , form).then(resp => {
-            //         console.log(resp.data.data)
-            //     })
-            //     this.getData()
-            // }
         },
         mounted(){
             this.getData()

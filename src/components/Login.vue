@@ -63,12 +63,12 @@ export default {
         localStorage.setItem('token', resp.data.access_token)
         localStorage.setItem('user', JSON.stringify(resp.data.user.email))
         localStorage.setItem('role', resp.data.user.role)
-        // console.log("aaaaaaaaaaaa")
-        // console.log(resp.data.user.role)
+        console.log("aaaaaaaaaaaa")
+        console.log(resp.data.user.role)
         if (resp.data.user.role === 'admin'){
             this.$router.push('/m-type')
         } else if (resp.data.user.role === 'receptionist'){
-            this.$router.push('m-order')
+            this.$router.push('/m-order')
         }
           // window.location.href = ('/')
       })

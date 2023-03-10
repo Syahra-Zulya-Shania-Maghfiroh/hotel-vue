@@ -110,7 +110,13 @@ export default {
   },
   methods: {
     getData: function(){ 
-      this.axios.get('/user').then(resp => { 
+      let token = { 
+        headers : { 
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        } 
+      }
+
+      this.axios.get('/user', token).then(resp => { 
           this.list_user = resp.data.data; 
           console.log(this.list_user); 
       }) 
@@ -141,16 +147,21 @@ export default {
         'role' : this.role,
         'password_confirmation' : this.password_confirmation,
       }
+      let token = { 
+        headers : { 
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        } 
+      }
 
       console.log(this.action);
 
       if(this.action === "insert"){
-          this.axios.post('/register', form).then(resp => {
+          this.axios.post('/register', form, token).then(resp => {
               this.list_user = resp.data;
               console.log(this.list_user)
           })
       } else {
-          this.axios.put('/user/' + this.id, form).then(resp => {
+          this.axios.put('/user/' + this.id, form, token).then(resp => {
             console.log(this.id)
               this.list_user = resp.data.data;
               console.log(this.list_user)
@@ -159,8 +170,14 @@ export default {
       this.getData()
     },
     hapus(id){
+      let token = { 
+        headers : { 
+          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        } 
+      }
+
       if(confirm('Are you sure?')){
-        this.axios.delete('/user/' + id).then(() =>
+        this.axios.delete('/user/' + id, token).then(() =>
         {
           location.reload()
         })

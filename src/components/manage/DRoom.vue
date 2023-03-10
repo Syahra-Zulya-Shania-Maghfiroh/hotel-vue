@@ -82,13 +82,19 @@ export default {
     },
     methods: {
         getRoom: function(){
-            this.axios.get('/type/detail/' + this.$route.params.type_id).then(resp => {
+            let token = { headers : { 'Authorization': 'Bearer ' +
+localStorage.getItem('token') } }
+
+            this.axios.get('/type/detail/' + this.$route.params.type_id, token).then(resp => {
                 this.list_room = resp.data;
                 // console.log(this.list_room)
             })
         },
         getType: function(){
-            this.axios.get('/type').then(resp => {
+            let token = { headers : { 'Authorization': 'Bearer ' +
+localStorage.getItem('token') } }
+
+            this.axios.get('/type', token).then(resp => {
                 this.list_type = resp.data.data
             })
         },
@@ -109,24 +115,30 @@ export default {
                 'type_id' : this.type_id,
                 'room_number' : this.room_number
             }
+            let token = { headers : { 'Authorization': 'Bearer ' +
+localStorage.getItem('token') } }
+
 
             console.log(this.action);
 
 
             if(this.action === "insert"){
-                this.axios.post('/room', form).then(resp => {
+                this.axios.post('/room', form, token).then(resp => {
                     this.list_type = resp.data.data
                 })
             } else {
-                this.axios.put('/room/' + this.room_id, form).then(resp => {
+                this.axios.put('/room/' + this.room_id, form, token).then(resp => {
                     this.list_type = resp.data.data
                 })
             }
             this.getRoom()
         },
         hapus(room_id){
+            let token = { headers : { 'Authorization': 'Bearer ' +
+localStorage.getItem('token') } }
+
             if(confirm('Are you sure?')){
-                this.axios.delete('/room/' + room_id).then(() =>
+                this.axios.delete('/room/' + room_id, token).then(() =>
                 {
                     location.reload()
                 })
