@@ -12,6 +12,7 @@
     "bootstrap-icons": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
+    "mosha-vue-toastify": "^1.0.23",
     "sweetalert2": "^11.7.3",
     "vue": "^3.2.13",
     "vue-file-upload": "^0.1.12",

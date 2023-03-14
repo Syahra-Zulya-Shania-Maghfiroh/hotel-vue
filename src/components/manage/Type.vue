@@ -1,6 +1,15 @@
+<script setup>
+import "mosha-vue-toastify/dist/style.css";
+import { createToast } from "mosha-vue-toastify";
+</script>
+
 <template>
   <Navbar />
   <section class="bg-warning" style="height: 100px"></section>
+  <button type="button" v-on:click="createAlert('haloo', 'danger')">
+    alert
+  </button>
+
   <div class="container">
     <div style="position: relative; z-index: 2">
       <div class="row" style="margin-top: -3rem; margin-bottom: 3rem">
@@ -117,7 +126,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <!-- <form> -->
             <div class="mb-3">
               <label for="">Type Name :</label>
               <input
@@ -155,7 +164,7 @@
                 Save
               </button>
             </div>
-          </form>
+          <!-- </form> -->
         </div>
       </div>
     </div>
@@ -164,10 +173,6 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-// import { defineComponent } from 'vue' 
-import Swal from 'sweetalert2'
-
-
 export default {
   name: "TypeView",
   data: function () {
@@ -229,27 +234,20 @@ export default {
       formData.append("type_name", this.type_name);
       formData.append("desc", this.desc);
       formData.append("price", this.price);
-
-      // if(this.photo) {
       formData.append("photo", this.photo);
-      // formData.append('photo_name', this.photo_name);
-      // formData.append('photo_path', this.photo_path);
-      // }
-
+    
       if (this.action === "insert") {
         this.axios
           .post("/type", formData, token)
           .then((resp) => {
-            this.list_type = resp.data.data;
-            Swal.fire({
-              title: "Success",
-              text: resp.data.message,
-              icon: "success",
-            });
-            console.log(resp.data.message)
+            this.createAlert(resp.data.message, "success")
+
+            location.reload()
           })
           .catch((error) => {
-            console.log(error);
+            this.createAlert(error, "danger");
+
+            location.reload()
           });
       } else {
         this.axios
@@ -277,6 +275,21 @@ export default {
           // location.reload()
         });
       }
+    },
+
+    createAlert(message, type) {
+      createToast(message, {
+        position: "top-right",
+        type: type,
+        timeout: 1500,
+        dismissible: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        closeOnClick: true,
+        closeButton: true,
+        icon: true,
+        rtl: false,
+      });
     },
   },
   mounted() {

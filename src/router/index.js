@@ -132,36 +132,4 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
-});
-
-// router.beforeEach((to, from, next) => {
-//     console.log("aaaaaaaa")
-//     if (to.matched.some((record) => record.meta.requiresAuth)) {
-//         console.log("bbbbb")
-
-//         if (!store.state.auth.status.isLoggedIn) {
-//             console.log(!store.state.auth.status.isLoggedIn)
-//             console.log("cccc")
-
-//             next({
-//                 path: "/login",
-//                 query: {
-//                     redirect: to.fullPath
-//                 },
-
-//             });
-//         } else {
-//             console.log("cccccccccc")
-//             if (to.meta.allowedRoles.includes(store.state.auth.data.user.role)) {
-//                 console.log("dddddddddd")
-//                 next();
-//             } else {
-//                 next({
-//                     name: "unauthorized"
-//                 });
-//             }
-//         }
-//     } else {
-//         next();
-//     }
-// })
+})

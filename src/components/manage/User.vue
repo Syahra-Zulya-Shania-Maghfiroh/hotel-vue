@@ -1,3 +1,8 @@
+<script setup>
+import "mosha-vue-toastify/dist/style.css";
+import { createToast } from "mosha-vue-toastify";
+</script>
+
 <template>
   <Navbar />
   <section class="bg-warning" style="height: 100px"></section>
@@ -195,17 +200,9 @@ export default {
       password_confirmation: "",
       role: "",
       action: "",
-
-      // alert
-      alertMessage: "",
-      alertType: "",
     };
   },
   methods: {
-    showAlert(message, type) {
-      this.alertMessage = message;
-      this.alertType = type;
-    },
     getData: function () {
       let token = {
         headers: {
@@ -257,30 +254,27 @@ export default {
       };
 
       if (this.action === "insert") {
-        console.log(form);
-        console.log(token);
-        console.log(this.action);
-        this.axios.post("/user", form, token).then((resp) => {
-          this.showAlert = true;
-          this.alertClasses = "alert alert-primary";
-          this.alertMessage = resp.data.message;
-          console.log("🎶🎶🎶🎶🎶");
-          console.log(resp);
-          this.getData();
-          // <div class="alert alert-primary" role="alert">
-          //   resp.data.message
-          // </div>
-        });
+        this.axios
+          .post("/user", form, token)
+          .then((resp) => {
+            this.createAlert(resp.data.message, "success");
+            location.reload();
+          })
+          .catch((error) => {
+            this.createAlert(error, "danger");
+            location.reload();
+          });
       } else {
-        this.axios.put("/user/" + this.id, form, token).then((resp) => {
-          // console.log(this.id)
-          this.showAlert(resp.data.message, "success");
-
-          console.log(resp.data.message);
-          // this.list_user = resp.data.user;
-          console.log(this.list_user);
-          this.getData();
-        });
+        this.axios
+          .put("/user/" + this.id, form, token)
+          .then((resp) => {
+            this.createAlert(resp.data.message, "success");
+            location.reload();
+          })
+          .catch((error) => {
+            this.createAlert(error, "danger");
+            location.reload();
+          });
       }
     },
     hapus(id) {
@@ -297,6 +291,21 @@ export default {
       }
     },
   },
+  createAlert(message, type) {
+    createToast(message, {
+      position: "top-right",
+      type: type,
+      timeout: 1500,
+      dismissible: true,
+      pauseOnFocusLoss: true,
+      pauseOnHover: true,
+      closeOnClick: true,
+      closeButton: true,
+      icon: true,
+      rtl: false,
+    });
+  },
+
   mounted() {
     this.getData();
   },
