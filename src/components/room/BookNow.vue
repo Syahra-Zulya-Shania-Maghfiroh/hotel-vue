@@ -88,8 +88,9 @@ export default {
             }).then((resp) => { 
                 // this.getData();
                 // set data check in, check out di sessionStorage
-                sessionStorage.setItem('check_in', this.check_in);
-                sessionStorage.setItem('check_out', this.check_out);
+                // sessionStorage.setItem('check_in', this.check_in);
+                // sessionStorage.setItem('check_out', this.check_out);
+
                 
                 console.log('sessionStorage : ', sessionStorage.getItem('check_in'), sessionStorage.getItem('check_out'))
                 this.list_type = resp.data.data;

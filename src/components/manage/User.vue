@@ -1,92 +1,180 @@
 <template>
   <Navbar />
-  <div class="landing" style="padding: 250px 0 250px 0; margin-bottom: 60px">
-    <div
-      class="container text-center"
-      style="font-weight: bold; color: #ffffff"
-    >
-      <h1>User Data</h1>
+  <section class="bg-warning" style="height: 100px"></section>
+  <div class="container">
+    <div style="position: relative; z-index: 2">
+      <div class="row" style="margin-top: -3rem; margin-bottom: 3rem">
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-address-card fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Officer</p>
+              <h4 class="mb-0">{{ total }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-user-friends fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Admin</p>
+              <h4 class="mb-0">{{ total_admin }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+          >
+            <i class="fas fa-users fa-3x text-warning"></i>
+            <div class="ms-3">
+              <p class="mb-2">Total Receptionist</p>
+              <h4 class="mb-0">{{ total_recep }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-bottom: 2rem">
+    <div class="row">
+      <div class="col-lg-10">
+        <h3>All User</h3>
+      </div>
+      <div class="col-lg-2">
+        <button
+          type="button"
+          v-on:click="addUser()"
+          data-toggle="modal"
+          data-target="#userModal"
+          class="btn btn-warning pl-4 pr-4 text-light"
+        >
+          + Add More
+        </button>
+      </div>
     </div>
   </div>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-10">
-          <h3>All User</h3>
+    <section class="bg-light">
+      <div class="row" style="margin-left: 1rem"></div>
+      <!-- <h3>All Order Data</h3> -->
+      <div class="rounded h-100 p-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(user, index) in list_user" :key="index.user">
+              <th scope="row">{{ index + 1 }}</th>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button
+                  v-on:click="editUser(user)"
+                  class="btn btn-warning mx-2"
+                  data-toggle="modal"
+                  data-target="#userModal"
+                >
+                  <i class="far fa-edit"></i>
+                </button>
+                <button v-on:click="hapus(user.id)" class="btn btn-danger">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="col-lg-2">
-          <button type="button" data-toggle="modal" data-target="#userModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
-      </div>
-    </div>
-    <div class="rounded h-100 p-4">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(user, index) in list_user" :key="index.user">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
-            <td>
-                <button v-on:click="editUser(user)" class="btn btn-warning mx-2" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
-                <button v-on:click="hapus(user.id)" class="btn btn-danger"><i class="far fa-trash-alt"></i></button> 
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    </section>
   </div>
-  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div
+    class="modal fade"
+    id="userModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
+      <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Data User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="exampleModalLabel">Data User</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
-            </button>
+          </button>
         </div>
         <div class="modal-body">
-            <form>
-                <div class="mb-3">
-                    <label for="">Username :</label>
-                    <input type="text" v-model="name" class="form-control" required>       
-                </div>
-                <div class="mb-3">
-                    <label for="">Email :</label>
-                    <input type="email" v-model="email" class="form-control" required>       
-                </div>
-                <div class="mb-3">
-                    <label for="">Password :</label>
-                    <input type="password" v-model="password" class="form-control" required>       
-                </div>
-                <div class="mb-3">
-                    <label for="">Password Confirm :</label>
-                    <input type="password" v-model="password_confirmation" class="form-control" required>       
-                </div>
-                <div class="mb-3">
-                    <label for="">Role :</label>
-                    <select v-model="role" class="form-control" required>
-                        <!-- <option value="">---Select Role---</option> -->
-                        <option value="receptionist">Receptionist</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
+          <form>
+            <div class="mb-3">
+              <label for="">Username :</label>
+              <input type="text" v-model="name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="">Email :</label>
+              <input
+                type="email"
+                v-model="email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="">Password :</label>
+              <input
+                type="password"
+                v-model="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="">Password Confirm :</label>
+              <input
+                type="password"
+                v-model="password_confirmation"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="">Role :</label>
+              <select v-model="role" class="form-control" required>
+                <!-- <option value="">---Select Role---</option> -->
+                <option value="receptionist">Receptionist</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
 
-                <div class="mb-3">
-                    <button v-on:click="saveData()" class="btn btn-warning">Save</button>
-                </div>
-            </form>
+            <div class="mb-3">
+              <button v-on:click="saveData()" class="btn btn-warning">
+                Save
+              </button>
+            </div>
+          </form>
         </div>
-        </div>
+      </div>
     </div>
-</div>
+    <div>
+      <b-alert show :variant="alertType">{{ alertMessage }}</b-alert>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -99,93 +187,118 @@ export default {
   },
   data: function () {
     return {
-        list_user: [],
-        id: '',
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        action: ''
+      list_user: [],
+      id: "",
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role: "",
+      action: "",
+
+      // alert
+      alertMessage: "",
+      alertType: "",
     };
   },
   methods: {
-    getData: function(){ 
-      let token = { 
-        headers : { 
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
-        } 
-      }
+    showAlert(message, type) {
+      this.alertMessage = message;
+      this.alertType = type;
+    },
+    getData: function () {
+      let token = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
 
-      this.axios.get('/user', token).then(resp => { 
-          this.list_user = resp.data.data; 
-          console.log(this.list_user); 
-      }) 
+      this.axios.get("/user", token).then((resp) => {
+        this.list_user = resp.data.user;
+        this.total = resp.data.total;
+        this.total_admin = resp.data.total_admin;
+        this.total_recep = resp.data.total_recep;
+        console.log(this.list_user);
+      });
     },
-    addUser: function(){
-      this.id = "",
-      this.name = "",
-      this.password = "",
-      this.role = "",
-      this.password_confirmation = "",
-      this.action = "insert"
+    addUser: function () {
+      (this.id = ""),
+        (this.name = ""),
+        (this.email = ""),
+        (this.password = ""),
+        (this.password_confirmation = ""),
+        (this.role = ""),
+        (this.action = "insert");
     },
-    editUser: function(userData){
-      this.id = userData.id,
-      this.name = userData.name,
-      this.email = userData.email,
-      this.password = userData.password,
-      this.role = userData.role,
-      this.password_confirmation = userData.password_confirmation,
-      this.action = "update"
+    editUser: function (userData) {
+      (this.id = userData.id),
+        (this.name = userData.name),
+        (this.email = userData.email),
+        (this.password = userData.password),
+        (this.password_confirmation = userData.password_confirmation),
+        (this.role = userData.role),
+        (this.action = "update");
     },
-    saveData: function(){
+    saveData() {
       let form = {
-        'id' : this.id,
-        'name' : this.name,
-        'email' : this.email,
-        'password' : this.password,
-        'role' : this.role,
-        'password_confirmation' : this.password_confirmation,
-      }
-      let token = { 
-        headers : { 
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
-        } 
-      }
+        // 'id' : this.id,
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+        role: this.role,
+      };
+      this.action = "insert";
 
-      console.log(this.action);
+      let token = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
 
-      if(this.action === "insert"){
-          this.axios.post('/register', form, token).then(resp => {
-              this.list_user = resp.data;
-              console.log(this.list_user)
-          })
+      if (this.action === "insert") {
+        console.log(form);
+        console.log(token);
+        console.log(this.action);
+        this.axios.post("/user", form, token).then((resp) => {
+          this.showAlert = true;
+          this.alertClasses = "alert alert-primary";
+          this.alertMessage = resp.data.message;
+          console.log("🎶🎶🎶🎶🎶");
+          console.log(resp);
+          this.getData();
+          // <div class="alert alert-primary" role="alert">
+          //   resp.data.message
+          // </div>
+        });
       } else {
-          this.axios.put('/user/' + this.id, form, token).then(resp => {
-            console.log(this.id)
-              this.list_user = resp.data.data;
-              console.log(this.list_user)
-          })
-      }
-      this.getData()
-    },
-    hapus(id){
-      let token = { 
-        headers : { 
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
-        } 
-      }
+        this.axios.put("/user/" + this.id, form, token).then((resp) => {
+          // console.log(this.id)
+          this.showAlert(resp.data.message, "success");
 
-      if(confirm('Are you sure?')){
-        this.axios.delete('/user/' + id, token).then(() =>
-        {
-          location.reload()
-        })
+          console.log(resp.data.message);
+          // this.list_user = resp.data.user;
+          console.log(this.list_user);
+          this.getData();
+        });
       }
-    }
+    },
+    hapus(id) {
+      let token = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
+
+      if (confirm("Are you sure?")) {
+        this.axios.delete("/user/" + id, token).then(() => {
+          location.reload();
+        });
+      }
+    },
   },
-  mounted(){
-    this.getData()
-  }
+  mounted() {
+    this.getData();
+  },
 };
 </script>

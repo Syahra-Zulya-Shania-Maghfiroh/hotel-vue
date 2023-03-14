@@ -27,18 +27,34 @@
         </nav>
 
     </template>
-    <!-- <nav class="navbar">
-        <div class="container-fluid">
-            <ul class="navbar-nav ms-auto">
-
-            <li class="nav-item">
-                <router-link class="nav-link" to="/dashboard">DASHBOARD</router-link>
-            </li>
-            <button class="btn nav-link" @click="logout()">LOGOUT</button>
-            
-            </ul>
-        </div>
-    </nav> -->
+    <template v-if="role !== 'admin' && role !== 'receptionist'">
+        <nav class="navbar navbar-expand-lg navbar-light" style="color: #000000">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/wikusama.png" alt="Wikusama" height="30px" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-black" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/">HOME</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/booknow">BOOK NOW</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/rooms">OUR ROOM</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/contact">CONTACT</router-link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </template>
 
     <!-- </div> -->
 </template>

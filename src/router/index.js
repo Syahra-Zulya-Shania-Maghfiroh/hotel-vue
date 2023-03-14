@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import Room from '../views/Room.vue'
 import Booking from '../views/Booking.vue'
 import Login from '../components/Login.vue'
-import Manage from '../components/manage/Manage.vue'
 import Type from '../components/manage/Type.vue'
 import DRoom from '../components/manage/DRoom.vue'
 import User from '../components/manage/User.vue'
@@ -13,9 +12,8 @@ import BookNow from '../components/room/BookNow.vue'
 import Receipt from '../views/Receipt.vue'
 import FindReceipt from '../views/FindReceipt.vue'
 
-import Sidebar from '../components/Sidebar.vue'
-import Dashboard from '../components/Dashboard.vue'
-
+import Unauthorized from '../components/Unauthorized.vue'
+// import store from "../store/index.js";
 // import axios from 'axios'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
@@ -25,14 +23,9 @@ const routes = [{
         component: HomeView
     },
     {
-        path: '/sidebar',
-        name: 'sidebar',
-        component: Sidebar
-    },
-    {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: Dashboard
+        path: '/unauthorized',
+        name: 'unauthorized',
+        component: Unauthorized
     },
     {
         path: '/login',
@@ -71,29 +64,36 @@ const routes = [{
         component: BookNow
     },
     {
-        path: '/manage',
-        name: 'manage',
-        component: Manage
-    },
-    {
         path: '/m-type',
         name: 'type',
-        component: Type
+        component: Type,
+        meta: {
+            requiresAuth: true,
+            allowedRoles: ['admin']
+        }
     },
     {
         path: '/detailroom/:type_id',
         name: 'droom',
-        component: DRoom
+        component: DRoom,
     },
     {
         path: '/m-user',
         name: 'user',
-        component: User
+        component: User,
+        meta: {
+            requiresAuth: true,
+            allowedRoles: ['admin']
+        }
     },
     {
         path: '/m-order',
         name: 'order',
-        component: Order
+        component: Order,
+        meta: {
+            requiresAuth: true,
+            allowedRoles: ['receptionist']
+        }
     },
     {
         path: '/about',
@@ -112,3 +112,56 @@ const router = createRouter({
 })
 
 export default router
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    if (requiresAuth) {
+        const userRole = localStorage.getItem("role");
+        if (!userRole) {
+            next({
+                path: "/login"
+            });
+        } else {
+            if (to.meta.allowedRoles.includes(userRole)) {
+                next();
+            } else {
+                next({
+                    name: "unauthorized"
+                });
+            }
+        }
+    } else {
+        next();
+    }
+});
+
+// router.beforeEach((to, from, next) => {
+//     console.log("aaaaaaaa")
+//     if (to.matched.some((record) => record.meta.requiresAuth)) {
+//         console.log("bbbbb")
+
+//         if (!store.state.auth.status.isLoggedIn) {
+//             console.log(!store.state.auth.status.isLoggedIn)
+//             console.log("cccc")
+
+//             next({
+//                 path: "/login",
+//                 query: {
+//                     redirect: to.fullPath
+//                 },
+
+//             });
+//         } else {
+//             console.log("cccccccccc")
+//             if (to.meta.allowedRoles.includes(store.state.auth.data.user.role)) {
+//                 console.log("dddddddddd")
+//                 next();
+//             } else {
+//                 next({
+//                     name: "unauthorized"
+//                 });
+//             }
+//         }
+//     } else {
+//         next();
+//     }
+// })

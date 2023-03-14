@@ -5,7 +5,7 @@ import "flatpickr/dist/flatpickr.css";
 
 <template>
   <Navbar />
-  <p>{{role}}</p>
+  <!-- <p>{{role}}</p> -->
   <section class="bg-warning" style="height: 100px; z-index: 1"></section>
   <div class="container">
     <div style="position: relative; z-index: 2">
@@ -39,7 +39,7 @@ import "flatpickr/dist/flatpickr.css";
             <i class="fas fa-chart-area fa-3x text-warning"></i>
             <div class="ms-3">
               <p class="mb-2">Total Revenue</p>
-              <h4 class="mb-0">$1234</h4>
+              <h4 class="mb-0">Rp. {{ total_income }}</h4>
             </div>
           </div>
         </div>
@@ -217,6 +217,7 @@ export default {
         this.list_order = resp.data.data;
         this.booking = resp.data.booking;
         this.data_check = resp.data.data_check;
+        this.total_income = resp.data.total_income;
         // console.log(sessionStorage.getItem);
         console.log("aaaaaaaaaa");
         console.log(this.list_order);
@@ -225,14 +226,14 @@ export default {
       });
     },
     updateStatus(order_id, status) {
+      let form = {
+        status: status,
+      };
       let token = { 
         headers : { 
           'Authorization': 'Bearer ' + localStorage.getItem('token') 
         } 
       }
-      let form = {
-        status: status,
-      };
       this.axios.put("/orders/status/" + order_id, form, token).then((resp) => {
         this.list_order = resp.data.status;
         this.showDropdown = false;
@@ -248,18 +249,18 @@ export default {
       }
       if (this.guest_name !== "" && this.check_in === null) {
         this.axios
-          .post("/orderFilter", token, {
+          .post("/orderFilter",  {
             guest_name: this.guest_name,
-          })
+          }, token)
           .then((resp) => {
-            this.list_order = resp;
+            this.list_order = resp.data.data;
             console.log(this.list_order)
           });
       } else if (this.check_in !== null && this.guest_name === "") {
         this.axios
-          .post("/orderFilter", token, {
+          .post("/orderFilter",  {
             check_in: this.check_in,
-          })
+          }, token)
           .then((resp) => {
             this.list_order = resp.data.data;
           });

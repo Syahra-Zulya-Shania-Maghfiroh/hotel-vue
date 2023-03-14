@@ -1,12 +1,13 @@
 <template>
-<Manage/>
-<div class="container">
-    <div class="row">
+<Navbar/>
+<!-- <section class="bg-warning" style="height: 100px"></section> -->
+<div class="container" style="margin-top: 3rem">
+    <div class="row" style="margin-bottom: 2rem">
         <div class="col-lg-10">
             <h3>All Room</h3>
         </div>
         <div class="col-lg-2">
-            <button type="button" v-on:click="addRoom()" data-toggle="modal" data-target="#roomModal" class="btn btn-warning pl-5 pr-5 pt-2 pb-2 text-light">+ Add More</button>
+            <button type="button" v-on:click="addRoom()" data-toggle="modal" data-target="#roomModal" class="btn btn-warning pl-4 pr-4 pt-2 pb-2 text-light">+ Add More</button>
         </div>
     </div>
     <div class="bg-light rounded h-100 p-4">
@@ -61,9 +62,13 @@
     </div>
 </div>
 
+<div>
+  <b-alert show :variant="alertType">{{ alertMessage }}</b-alert>
+</div>
+
 </template>
 <script>
-import Manage from '@/components/manage/Manage.vue'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
     name: "DRoomView",
@@ -75,15 +80,27 @@ export default {
             room_id: "",
             room_number: "",
             action: "",
+
+            // alert 
+            alertMessage: '', 
+            alertType: '',
+
         }
     },
     components: {
-        Manage
+        Navbar
     },
     methods: {
+        showAlert(message, type) { 
+            this.alertMessage = message; 
+            this.alertType = type;
+        },
         getRoom: function(){
-            let token = { headers : { 'Authorization': 'Bearer ' +
-localStorage.getItem('token') } }
+            let token = { 
+                headers : { 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                    } 
+            }
 
             this.axios.get('/type/detail/' + this.$route.params.type_id, token).then(resp => {
                 this.list_room = resp.data;
@@ -91,8 +108,11 @@ localStorage.getItem('token') } }
             })
         },
         getType: function(){
-            let token = { headers : { 'Authorization': 'Bearer ' +
-localStorage.getItem('token') } }
+            let token = { 
+                headers : { 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                } 
+            }
 
             this.axios.get('/type', token).then(resp => {
                 this.list_type = resp.data.data
@@ -115,8 +135,11 @@ localStorage.getItem('token') } }
                 'type_id' : this.type_id,
                 'room_number' : this.room_number
             }
-            let token = { headers : { 'Authorization': 'Bearer ' +
-localStorage.getItem('token') } }
+            let token = { 
+                headers : { 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                } 
+            }
 
 
             console.log(this.action);
@@ -124,18 +147,25 @@ localStorage.getItem('token') } }
 
             if(this.action === "insert"){
                 this.axios.post('/room', form, token).then(resp => {
-                    this.list_type = resp.data.data
+                    this.showAlert(resp.data.message, 'success');
+                    // this.list_type = resp.data.data
+
                 })
             } else {
                 this.axios.put('/room/' + this.room_id, form, token).then(resp => {
-                    this.list_type = resp.data.data
+                    this.showAlert(resp.data.message, 'success');
+
+                    // this.list_type = resp.data.data
                 })
             }
             this.getRoom()
         },
         hapus(room_id){
-            let token = { headers : { 'Authorization': 'Bearer ' +
-localStorage.getItem('token') } }
+            let token = { 
+                headers : { 
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+                } 
+            }
 
             if(confirm('Are you sure?')){
                 this.axios.delete('/room/' + room_id, token).then(() =>
