@@ -6,9 +6,6 @@ import { createToast } from "mosha-vue-toastify";
 <template>
   <Navbar />
   <section class="bg-warning" style="height: 100px"></section>
-  <button type="button" v-on:click="createAlert('haloo', 'danger')">
-    alert
-  </button>
 
   <div class="container">
     <div style="position: relative; z-index: 2">
@@ -127,43 +124,38 @@ import { createToast } from "mosha-vue-toastify";
         </div>
         <div class="modal-body">
           <!-- <form> -->
-            <div class="mb-3">
-              <label for="">Type Name :</label>
-              <input
-                type="text"
-                v-model="type_name"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="">Price :</label>
-              <input
-                type="text"
-                v-model="price"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="">Description :</label>
-              <textarea
-                v-model="desc"
-                class="form-control"
-                required
-                style="height: 100px"
-              ></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="">Photo :</label>
-              <br />
-              <input type="file" ref="file" v-on:change="uploadPhoto" />
-            </div>
-            <div class="mb-3">
-              <button v-on:click="saveData()" class="btn btn-warning">
-                Save
-              </button>
-            </div>
+          <div class="mb-3">
+            <label for="">Type Name :</label>
+            <input
+              type="text"
+              v-model="type_name"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="">Price :</label>
+            <input type="text" v-model="price" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="">Description :</label>
+            <textarea
+              v-model="desc"
+              class="form-control"
+              required
+              style="height: 100px"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="">Photo :</label>
+            <br />
+            <input type="file" ref="file" v-on:change="uploadPhoto" />
+          </div>
+          <div class="mb-3">
+            <button v-on:click="saveData()" class="btn btn-warning">
+              Save
+            </button>
+          </div>
           <!-- </form> -->
         </div>
       </div>
@@ -235,28 +227,30 @@ export default {
       formData.append("desc", this.desc);
       formData.append("price", this.price);
       formData.append("photo", this.photo);
-    
+
       if (this.action === "insert") {
         this.axios
           .post("/type", formData, token)
           .then((resp) => {
-            this.createAlert(resp.data.message, "success")
+            this.createAlert(resp.data.message, "success");
 
-            location.reload()
+            location.reload();
           })
           .catch((error) => {
             this.createAlert(error, "danger");
 
-            location.reload()
+            location.reload();
           });
       } else {
         this.axios
           .post("/type/" + this.type_id, formData, token)
           .then((resp) => {
-            this.list_type = resp.data.data;
+            this.createAlert(resp.data.message, "success");
+            location.reload();
           })
           .catch((error) => {
-            console.log(error);
+            this.createAlert(error, "danger");
+            location.reload();
           });
       }
       this.getData();
@@ -270,8 +264,11 @@ export default {
       };
 
       if (confirm("Are you sure?")) {
-        this.axios.delete("/type/" + type_id, token).then(() => {
-          this.getData();
+        this.axios.delete("/type/" + type_id, token).then((resp) => {
+          this.createAlert(resp.data.message, "success");
+          location.reload();
+
+          // this.getData();
           // location.reload()
         });
       }

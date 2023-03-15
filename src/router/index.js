@@ -58,22 +58,6 @@ const routes = [{
         name: 'receipt',
         component: Receipt,
         props: true,
-        // beforeEnter: (to, from, next) => {
-        //     const input_order_number = to.params.order_number;
-        //     // const expected_order_number = order_number;
-
-        //     // memperoleh data order dari server
-        //     axios.get(`/orders/${input_order_number}`)
-        //         .then(resp => {
-        //             // const order_number = resp.data;
-        //             if (input_order_number !== input_order_number) {
-        //                 next({ name: "notfound" });
-        //                 console.log(resp)
-        //             } else {
-        //                 next();
-        //             }
-        //         })
-        // }
     },
     {
         path: '/orders/receipt',

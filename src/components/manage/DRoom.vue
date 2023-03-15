@@ -79,7 +79,7 @@ import { createToast } from "mosha-vue-toastify";
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <!-- <form> -->
             <!-- <div class="mb-3"> -->
             <input
               type="hidden"
@@ -102,7 +102,7 @@ import { createToast } from "mosha-vue-toastify";
                 Save
               </button>
             </div>
-          </form>
+          <!-- </form> -->
         </div>
       </div>
     </div>
@@ -190,10 +190,12 @@ export default {
           .post("/room", form, token)
           .then((resp) => {
             this.createAlert(resp.data.message, "success");
+
             location.reload();
           })
           .catch((error) => {
             this.createAlert(error, "danger");
+
             location.reload();
           });
       } else {
@@ -201,10 +203,12 @@ export default {
           .put("/room/" + this.room_id, form, token)
           .then((resp) => {
             this.createAlert(resp.data.message, "success");
+
             location.reload();
           })
           .catch((error) => {
             this.createAlert(error, "danger");
+
             location.reload();
           });
       }

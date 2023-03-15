@@ -48,7 +48,7 @@
                             <router-link class="nav-link" to="/rooms">OUR ROOM</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/contact">CONTACT</router-link>
+                            <router-link class="nav-link" to="/#">CONTACT</router-link>
                         </li>
                     </ul>
                 </div>

@@ -126,53 +126,48 @@ import { createToast } from "mosha-vue-toastify";
           </button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="">Username :</label>
-              <input type="text" v-model="name" class="form-control" required />
-            </div>
-            <div class="mb-3">
-              <label for="">Email :</label>
-              <input
-                type="email"
-                v-model="email"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="">Password :</label>
-              <input
-                type="password"
-                v-model="password"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="">Password Confirm :</label>
-              <input
-                type="password"
-                v-model="password_confirmation"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="">Role :</label>
-              <select v-model="role" class="form-control" required>
-                <!-- <option value="">---Select Role---</option> -->
-                <option value="receptionist">Receptionist</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
+          <!-- <form> -->
+          <div class="mb-3">
+            <label for="">Username :</label>
+            <input type="text" v-model="name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="">Email :</label>
+            <input type="email" v-model="email" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="">Password :</label>
+            <input
+              type="password"
+              v-model="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="">Password Confirm :</label>
+            <input
+              type="password"
+              v-model="password_confirmation"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="">Role :</label>
+            <select v-model="role" class="form-control" required>
+              <!-- <option value="">---Select Role---</option> -->
+              <option value="receptionist">Receptionist</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
-            <div class="mb-3">
-              <button v-on:click="saveData()" class="btn btn-warning">
-                Save
-              </button>
-            </div>
-          </form>
+          <div class="mb-3">
+            <button v-on:click="saveData()" class="btn btn-warning">
+              Save
+            </button>
+          </div>
+          <!-- </form> -->
         </div>
       </div>
     </div>
@@ -193,7 +188,7 @@ export default {
   data: function () {
     return {
       list_user: [],
-      id: "",
+      // id: "",
       name: "",
       email: "",
       password: "",
@@ -238,41 +233,50 @@ export default {
     },
     saveData() {
       let form = {
-        // 'id' : this.id,
+        id: this.id,
         name: this.name,
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
         role: this.role,
       };
-      this.action = "insert";
+      // this.action = "insert";
 
       let token = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
+      console.log(this.action);
+      console.log(form);
 
       if (this.action === "insert") {
         this.axios
           .post("/user", form, token)
           .then((resp) => {
             this.createAlert(resp.data.message, "success");
+
             location.reload();
           })
           .catch((error) => {
             this.createAlert(error, "danger");
+
             location.reload();
           });
       } else {
+        console.log("masuk");
         this.axios
           .put("/user/" + this.id, form, token)
           .then((resp) => {
+            console.log("aaaa");
+            console.log(resp.data.message);
             this.createAlert(resp.data.message, "success");
+            console.log(resp.data.message);
             location.reload();
           })
           .catch((error) => {
             this.createAlert(error, "danger");
+
             location.reload();
           });
       }
@@ -290,20 +294,20 @@ export default {
         });
       }
     },
-  },
-  createAlert(message, type) {
-    createToast(message, {
-      position: "top-right",
-      type: type,
-      timeout: 1500,
-      dismissible: true,
-      pauseOnFocusLoss: true,
-      pauseOnHover: true,
-      closeOnClick: true,
-      closeButton: true,
-      icon: true,
-      rtl: false,
-    });
+    createAlert(message, type) {
+      createToast(message, {
+        position: "top-right",
+        type: type,
+        timeout: 1500,
+        dismissible: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        closeOnClick: true,
+        closeButton: true,
+        icon: true,
+        rtl: false,
+      });
+    },
   },
 
   mounted() {
