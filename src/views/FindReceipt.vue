@@ -30,9 +30,6 @@
                         <div v-if="receipt.length > 0">
                             {{ order_number }}
                         </div>
-                        <div v-else>
-                            nnn
-                        </div>
                     </div>
                 </div>
             </div>
@@ -70,28 +67,17 @@ export default {
                 email: this.customer_email,
                 order_number: this.order_number
             }).then((resp) => {
-                this.$router.push({name: 'receipt', params:{order_number: this.order_number}});
-                // window.open(
-                // this.$router.push({name: 'receipt', params:{order_number: this.order_number}})
-                // )
+                // console.log(resp.data.data.original.data.order_number !== this.order_number)
+                // if (resp.data.data.original.data.order_number !== true){
+                // this.$router.push({name: 'notfound'});   
+                // }
+                // else {
 
-               
-
-                // this.$router.push({name: 'receipt', params:{order_number: this.order_number}});
-                // this.receipt = resp.data.receipt_data.data
-                // console.log(this.receipt)
-
-                // window.open('/orders/receipt/' + resp.data.data.order_number, '_blank');
-                // console.log(resp.data.data.order_number) 
-                // this.$router.push('/orders/receipt/' + this.receipt[0].order_number)
-
-                // this.receipt = resp.data.receipt_data.data[0] 
-                // console.log(this.receipt)
-                // window.open('/orders/receipt/' + resp.data.data.order_number, '_blank');
-                // console.log(resp.data.data.order_number) 
-                // this.$router.push('/orders/receipt/' + this.receipt.order_number)
-
+                    this.$router.push({name: 'receipt', params:{order_number: this.order_number}});
+                // }
+              
                 console.log(resp);
+                // console.log(resp.data.data.original.data.order_number)
             })
         }
     }

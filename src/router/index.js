@@ -13,6 +13,7 @@ import Receipt from '../views/Receipt.vue'
 import FindReceipt from '../views/FindReceipt.vue'
 
 import Unauthorized from '../components/Unauthorized.vue'
+import NotFound from '../views/NotFound.vue'
 // import store from "../store/index.js";
 // import axios from 'axios'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
@@ -26,6 +27,11 @@ const routes = [{
         path: '/unauthorized',
         name: 'unauthorized',
         component: Unauthorized
+    },
+    {
+        path: '/notfound',
+        name: 'notfound',
+        component: NotFound
     },
     {
         path: '/login',
@@ -52,6 +58,22 @@ const routes = [{
         name: 'receipt',
         component: Receipt,
         props: true,
+        // beforeEnter: (to, from, next) => {
+        //     const input_order_number = to.params.order_number;
+        //     // const expected_order_number = order_number;
+
+        //     // memperoleh data order dari server
+        //     axios.get(`/orders/${input_order_number}`)
+        //         .then(resp => {
+        //             // const order_number = resp.data;
+        //             if (input_order_number !== input_order_number) {
+        //                 next({ name: "notfound" });
+        //                 console.log(resp)
+        //             } else {
+        //                 next();
+        //             }
+        //         })
+        // }
     },
     {
         path: '/orders/receipt',

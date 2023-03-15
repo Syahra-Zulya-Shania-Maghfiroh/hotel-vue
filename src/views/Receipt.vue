@@ -1,5 +1,10 @@
 <template>
-  <div class="container" style="border: 2px solid black; height: auto">
+<div v-if="receipts.data === null">
+  <NotFound/>
+</div>
+<div v-else>
+
+  <div class="container" style="border: 2px solid black; height: auto; width: auto">
     <div class="row" style="padding: 2rem">
       <div class="col-lg-6">
         <img src="..\assets\wikusama.png" alt="" width="50px" />
@@ -21,7 +26,7 @@
         </p>
       </div>
       <div class="col-lg-6">
-        <h3>BOOKING RECEIPT {{ receipts.data.guest_name }}</h3>
+        <h3 class="text-uppercase">BOOKING RECEIPT {{ receipts.data.guest_name }}</h3>
         <div class="row">
           <div class="col-lg-4">
             <p>Order Date</p>
@@ -60,24 +65,8 @@
               <td>{{ selected.days }}</td>
               <td>Rp {{ selected.price }}</td>
             </tr>
-            <!-- <tr>
-                            <th scope="row">2</th>
-                            <td>Suite Room</td>
-                            <td>202</td>
-                            <td>Rp. 250.000</td>
-                        </tr> -->
           </tbody>
           <tfoot>
-            <!-- <tr> -->
-
-            <!-- <td colspan="4"> -->
-              <!-- <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b> -->
-              <!-- <div class="d-flex flex-row-reverse">
-                <div class="p-2" style="background-color: #fff5c1">
-                  <b>Grand Total : <span style="float: right"></span></b>
-                </div>
-              </div> -->
-            <!-- </td> -->
             <td colspan="5">
               <!-- <b>Grand Total : <span style="float: right">Rp {{ grands }}</span></b> -->
               <div class="d-flex flex-row-reverse">
@@ -93,12 +82,18 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+// import NotFound ''
+import NotFound from "@/views/NotFound.vue";
+
 export default {
   name: "ReceiptView",
-  components: {},
+  components: {
+    NotFound
+  },
   data: function () {
     return {
       receipts: [],
@@ -118,6 +113,7 @@ export default {
           this.room_selected = resp.data.room_selected;
           this.grands = resp.data.grand_total;
           console.log(resp.data);
+          console.log(this.receipts.data);
           console.log("aaaaaaaaaaa");
           console.log(resp.data.grand_total);
           // console.log(this.receipts)
